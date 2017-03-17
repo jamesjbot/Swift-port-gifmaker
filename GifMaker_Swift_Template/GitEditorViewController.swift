@@ -1,5 +1,5 @@
 //
-//  GitEditorViewController.swift
+//  GifEditorViewController.swift
 //  GifMaker_Swift_Template
 //
 //  Created by Carl Lee on 1/26/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GitEditorViewController: UIViewController, UITextFieldDelegate {
+class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var captionTextField: UITextField!
     @IBOutlet weak var gifImageView: UIImageView!
@@ -54,10 +54,10 @@ class GitEditorViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-extension GitEditorViewController{
+extension GifEditorViewController{
     func subscribeToKeyboardNotifications(){
-        NotificationCenter.default.addObserver(self, selector: #selector(GitEditorViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(GitEditorViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GifEditorViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GifEditorViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications(){

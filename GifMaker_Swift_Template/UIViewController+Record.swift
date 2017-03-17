@@ -165,7 +165,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     }
     
     func displayGIF(gif: Gif){
-        let gifEditiorVC = storyboard?.instantiateViewController(withIdentifier: "GifEditorViewController") as! GitEditorViewController
+        let gifEditiorVC = storyboard?.instantiateViewController(withIdentifier: "GifEditorViewController") as! GifEditorViewController
         gifEditiorVC.gif = gif
         navigationController?.pushViewController(gifEditiorVC, animated: true)
     }
