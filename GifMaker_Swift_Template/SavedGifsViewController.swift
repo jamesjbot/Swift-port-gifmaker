@@ -74,6 +74,15 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
+        // Send gif to detail view controller
+        let detailView = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        detailView.localGif = savedGifs[indexPath.item]
+
+        // We want modal style presentation
+        detailView.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+
+        navigationController?.pushViewController(detailView, animated: true)
+
     }
 
 
