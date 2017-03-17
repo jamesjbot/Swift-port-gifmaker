@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		7A5E56E01E3A86570030A78F /* UIViewController+Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E56DF1E3A86570030A78F /* UIViewController+Record.swift */; };
 		7A5E56E21E3A884B0030A78F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E56E11E3A884B0030A78F /* WelcomeViewController.swift */; };
-		7A5E56E41E3A885C0030A78F /* GitEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E56E31E3A885C0030A78F /* GitEditorViewController.swift */; };
+		7A5E56E41E3A885C0030A78F /* GifEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E56E31E3A885C0030A78F /* GifEditorViewController.swift */; };
 		7A5E56E61E3A88690030A78F /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E56E51E3A88690030A78F /* PreviewViewController.swift */; };
 		7A5E56E81E3A9ADB0030A78F /* UIImage+gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E56E71E3A9ADA0030A78F /* UIImage+gif.swift */; };
 		7A5E56EA1E3ABD3C0030A78F /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E56E91E3ABD3C0030A78F /* Gif.swift */; };
@@ -29,7 +29,7 @@
 /* Begin PBXFileReference section */
 		7A5E56DF1E3A86570030A78F /* UIViewController+Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Record.swift"; sourceTree = "<group>"; };
 		7A5E56E11E3A884B0030A78F /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		7A5E56E31E3A885C0030A78F /* GitEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitEditorViewController.swift; sourceTree = "<group>"; };
+		7A5E56E31E3A885C0030A78F /* GifEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifEditorViewController.swift; sourceTree = "<group>"; };
 		7A5E56E51E3A88690030A78F /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		7A5E56E71E3A9ADA0030A78F /* UIImage+gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+gif.swift"; sourceTree = "<group>"; };
 		7A5E56E91E3ABD3C0030A78F /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
@@ -83,7 +83,6 @@
 			isa = PBXGroup;
 			children = (
 				EDFAA8EB1CDA99A500D2CB08 /* GifMaker_Swift_Template */,
-				EDFAA8EA1CDA99A500D2CB08 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,6 +92,7 @@
 				EDFAA8E91CDA99A500D2CB08 /* GifMaker_Swift_Template.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		EDFAA8EB1CDA99A500D2CB08 /* GifMaker_Swift_Template */ = {
@@ -101,6 +101,7 @@
 				EDFAA8EC1CDA99A500D2CB08 /* AppDelegate.swift */,
 				A94CC3D71D21C85A00DC758E /* Assets */,
 				A94CC3D61D21C84C00DC758E /* Supporting Files */,
+				EDFAA8EA1CDA99A500D2CB08 /* Products */,
 				EDFAA9221CDA9C4700D2CB08 /* Regift Files */,
 			);
 			path = GifMaker_Swift_Template;
@@ -116,7 +117,7 @@
 				EDFAA91E1CDA9C3100D2CB08 /* RegiftCaption.swift */,
 				7A5E56DF1E3A86570030A78F /* UIViewController+Record.swift */,
 				7A5E56E11E3A884B0030A78F /* WelcomeViewController.swift */,
-				7A5E56E31E3A885C0030A78F /* GitEditorViewController.swift */,
+				7A5E56E31E3A885C0030A78F /* GifEditorViewController.swift */,
 				7A5E56E51E3A88690030A78F /* PreviewViewController.swift */,
 				7A5E56E71E3A9ADA0030A78F /* UIImage+gif.swift */,
 				7A5E56E91E3ABD3C0030A78F /* Gif.swift */,
@@ -203,7 +204,7 @@
 				A7F8B1411E7BBE4200B3F302 /* SavedGifsViewController.swift in Sources */,
 				A7F8B1431E7BCB4300B3F302 /* GifCell.swift in Sources */,
 				7A5E56E01E3A86570030A78F /* UIViewController+Record.swift in Sources */,
-				7A5E56E41E3A885C0030A78F /* GitEditorViewController.swift in Sources */,
+				7A5E56E41E3A885C0030A78F /* GifEditorViewController.swift in Sources */,
 				EDFAA9211CDA9C3100D2CB08 /* RegiftCaption.swift in Sources */,
 				7A5E56EA1E3ABD3C0030A78F /* Gif.swift in Sources */,
 				7A5E56E21E3A884B0030A78F /* WelcomeViewController.swift in Sources */,
