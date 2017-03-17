@@ -12,7 +12,7 @@ import UIKit
 class SavedGifsViewController: UIViewController {
     // MARK: - IBOutlet
 
-    @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var emptyView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
 
     // MARK: - Constants
@@ -28,6 +28,14 @@ class SavedGifsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // Hide the Image if there are gifs availabe for display
+        emptyView.isHidden = (savedGifs.count != 0)
+        collectionView.reloadData()
     }
 }
 
