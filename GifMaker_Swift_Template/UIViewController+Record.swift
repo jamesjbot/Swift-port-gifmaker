@@ -111,7 +111,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         
         //Create the AVAsset and AVAssetTrack
         let videoAsset = AVAsset(url: rawVideoURL)
-        let videoTrack = videoAsset.tracks(withMediaType: AVMediaTypeAudio)[0]
+        let videoTrack = videoAsset.tracks(withMediaType: AVMediaTypeVideo)[0]
         
         // Crop to square
         let videoComposition = AVMutableVideoComposition()
