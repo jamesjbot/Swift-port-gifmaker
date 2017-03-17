@@ -219,6 +219,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="captionTextField" destination="Hx5-Iw-gBr" id="tFo-lC-Tr8"/>
                         <outlet property="gifImageView" destination="Idg-S9-dYE" id="KZw-V3-ZxN"/>
@@ -357,10 +358,10 @@
             </objects>
             <point key="canvasLocation" x="1215" y="66"/>
         </scene>
-        <!--Saved Gifs View Controller-->
+        <!--Welcome View Controller-->
         <scene sceneID="MO7-ys-2QJ">
             <objects>
-                <viewController storyboardIdentifier="WelcomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aXC-Xw-CZL" customClass="SavedGifsViewController" customModule="GifMaker_Swift_Template" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WelcomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aXC-Xw-CZL" customClass="WelcomeViewController" customModule="GifMaker_Swift_Template" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FzV-E8-2I8"/>
                         <viewControllerLayoutGuide type="bottom" id="IJD-un-28D"/>

@@ -1,4 +1,4 @@
-//
+ //
 //  GifEditorViewController.swift
 //  GifMaker_Swift_Template
 //
@@ -14,7 +14,8 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var gifImageView: UIImageView!
     
     var gif:Gif?
-    
+    var savedGifsViewController: PreviewViewControllerDelegate!
+
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
@@ -46,7 +47,7 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
         let previewVC = self.storyboard?.instantiateViewController(withIdentifier: "PreviewViewController") as! PreviewViewController
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let rootView = appDelegate.window!.rootViewController
-        previewVC.delegate = rootView as! PreviewViewControllerDelegate
+        previewVC.delegate = savedGifsViewController
 
         gif?.caption = captionTextField.text
         let regift = Regift(sourceFileURL: (gif?.videoURL)!, destinationFileURL: nil, frameCount: frameCount, delayTime: delayTime, loopCount: loopCount)

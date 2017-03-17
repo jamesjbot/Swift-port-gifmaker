@@ -19,10 +19,12 @@ let loopCount = 0
 extension UIViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     @IBAction func presentVideoOptions(){
-        
+
+        // If the device has no camera just go to the library
         if !UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
             launchPhotoLibrary()
-        } else{
+        } else { // Allow the user to choose how they want to import a video.
+
             let newGifActionSheet = UIAlertController(title: "Create new GIF", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
             let recordVideo = UIAlertAction(title: "Record a Video", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
                 self.launchVideoCamera()
@@ -41,21 +43,25 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
             newGifActionSheet.view.tintColor = pinkColor
         }
     }
-    
+
+
+    // Select the source as video camera
     func launchVideoCamera() {
         
         let recordVideoController = pickerControllerWithSource(source: UIImagePickerControllerSourceType.camera)
         present(recordVideoController, animated: true, completion: nil)
         
     }
-    
+
+    // Select the source as video library
     func launchPhotoLibrary(){
         
         let recordVideoController = pickerControllerWithSource(source: UIImagePickerControllerSourceType.photoLibrary)
         present(recordVideoController, animated: true, completion: nil)
         
     }
-    
+
+    // Returns a UIImagePickerController bound to a specific source
     func pickerControllerWithSource(source: UIImagePickerControllerSourceType) -> UIImagePickerController{
         
         let picker = UIImagePickerController()
@@ -66,7 +72,10 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         return picker
         
     }
-    
+
+
+    // MARK: - UIImagePickerControllerDelegate Methods
+
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let mediaType = info[UIImagePickerControllerMediaType] as! String
         
@@ -91,7 +100,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         dismiss(animated: true, completion: nil)
     }
     
-    //Convert to gif
+    // Convert to gif, asynchronously called after video is cropped to square.
     func convertVideoToGIF(videoURL: URL, start: NSNumber?, duration: NSNumber?){
         
         let regift: Regift
@@ -107,7 +116,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         
     }
     
-    func cropVideoToSquare(rawVideoURL: URL, start: NSNumber?, duration: NSNumber?){
+    func cropVideoToSquare(rawVideoURL: URL, start: NSNumber?, duration: NSNumber?) {
         
         //Create the AVAsset and AVAssetTrack
         let videoAsset = AVAsset(url: rawVideoURL)
@@ -163,10 +172,12 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         return outputURL
         
     }
-    
+
+    // Dependency inject gif into the GifEditorViewController
     func displayGIF(gif: Gif){
         let gifEditiorVC = storyboard?.instantiateViewController(withIdentifier: "GifEditorViewController") as! GifEditorViewController
         gifEditiorVC.gif = gif
+        gifEditiorVC.savedGifsViewController = self as! PreviewViewControllerDelegate
         navigationController?.pushViewController(gifEditiorVC, animated: true)
     }
 }
