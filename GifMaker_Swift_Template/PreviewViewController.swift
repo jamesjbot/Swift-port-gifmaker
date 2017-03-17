@@ -14,18 +14,6 @@ class PreviewViewController: UIViewController {
 
     @IBOutlet weak var captionImageView: UIImageView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        captionImageView.image = gif?.gifImage
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     @IBAction func shareGif(_ sender: Any) {
         
         let animatedGif =  NSData(contentsOf: (gif?.url)!)
@@ -38,6 +26,18 @@ class PreviewViewController: UIViewController {
         }
         
         navigationController?.present(shareController, animated: true, completion: nil)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        captionImageView.image = gif?.gifImage
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
     /*
