@@ -39,6 +39,7 @@ class SavedGifsViewController: UIViewController {
     }
 }
 
+// MARK: - Extensions
 
 extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -69,7 +70,14 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
 
 }
 
+// MARK: - PreviewViewControllerDelegate
 
-
+extension SavedGifsViewController: PreviewViewControllerDelegate {
+    func previewVC(preview: UIImage, didSaveGif gif: Gif) {
+        var newGif = Gif(url: gif.url, videoURL: gif.videoURL, caption: gif.caption)
+        newGif.gifData = NSData(contentsOf: newGif.url)
+        savedGifs.append(newGif)
+    }
+}
 
 

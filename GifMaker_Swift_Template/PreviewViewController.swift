@@ -8,12 +8,34 @@
 
 import UIKit
 
+protocol PreviewViewControllerDelegate {
+    func previewVC(preview: UIImage, didSaveGif gif: Gif)
+}
+
 class PreviewViewController: UIViewController {
-    
+
+    // MARK: - Variables
+    var delegate: PreviewViewControllerDelegate!
     var gif: Gif?
 
+    // MARK: - IBOutlets
+
+
     @IBOutlet weak var captionImageView: UIImageView!
-    
+
+    // MARK: - IBActions
+
+    // Allows us
+    @IBAction func createAndSave(_ sender: UIButton) {
+        if let gifImage = gif?.gifImage {
+            if let gif = self.gif {
+                delegate?.previewVC(preview: gifImage, didSaveGif: gif)
+            }
+        }
+
+        navigationController?.popToRootViewController(animated: true)
+    }
+
     @IBAction func shareGif(_ sender: Any) {
         
         let animatedGif =  NSData(contentsOf: (gif?.url)!)
@@ -28,6 +50,8 @@ class PreviewViewController: UIViewController {
         navigationController?.present(shareController, animated: true, completion: nil)
     }
 
+    // MARK: - Functions
+
     override func viewDidLoad() {
         super.viewDidLoad()
         captionImageView.image = gif?.gifImage
@@ -40,6 +64,7 @@ class PreviewViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+
     /*
     // MARK: - Navigation
 
@@ -51,3 +76,6 @@ class PreviewViewController: UIViewController {
     */
 
 }
+
+
+
