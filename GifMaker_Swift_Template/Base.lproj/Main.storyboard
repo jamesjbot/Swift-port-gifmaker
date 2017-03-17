@@ -164,7 +164,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="My Collection" id="7HF-Yq-Lti"/>
                     <connections>
-                        <outlet property="collectionView" destination="hbv-Kk-KXX" id="e1U-SC-APR"/>
+                        <outlet property="collectionView" destination="hbv-Kk-KXX" id="dwL-XO-Uby"/>
+                        <outlet property="emptyView" destination="IOx-EA-SOI" id="T0N-gu-AkR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1mO-R1-5Re" userLabel="First Responder" sceneMemberID="firstResponder"/>
