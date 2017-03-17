@@ -15,6 +15,7 @@
 		7A5E56EA1E3ABD3C0030A78F /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E56E91E3ABD3C0030A78F /* Gif.swift */; };
 		A7F8B1411E7BBE4200B3F302 /* SavedGifsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8B1401E7BBE4200B3F302 /* SavedGifsViewController.swift */; };
 		A7F8B1431E7BCB4300B3F302 /* GifCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8B1421E7BCB4300B3F302 /* GifCell.swift */; };
+		A7F8B1451E7C944000B3F302 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8B1441E7C944000B3F302 /* DetailViewController.swift */; };
 		A93B3B081D2D3F7900BE1662 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A93B3B041D2D3F7900BE1662 /* LaunchScreen.xib */; };
 		A93B3B091D2D3F7900BE1662 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A93B3B061D2D3F7900BE1662 /* Main.storyboard */; };
 		EDDFC4DC1CE261A600A586CA /* tinaFeyHiFive.gif in Resources */ = {isa = PBXBuildFile; fileRef = EDDFC4DB1CE261A600A586CA /* tinaFeyHiFive.gif */; };
@@ -35,6 +36,7 @@
 		7A5E56E91E3ABD3C0030A78F /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		A7F8B1401E7BBE4200B3F302 /* SavedGifsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedGifsViewController.swift; sourceTree = "<group>"; };
 		A7F8B1421E7BCB4300B3F302 /* GifCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GifCell.swift; path = GifMaker_Swift_Template/GifCell.swift; sourceTree = SOURCE_ROOT; };
+		A7F8B1441E7C944000B3F302 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A93B3B051D2D3F7900BE1662 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		A93B3B071D2D3F7900BE1662 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EDDFC4DB1CE261A600A586CA /* tinaFeyHiFive.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tinaFeyHiFive.gif; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				A7F8B1401E7BBE4200B3F302 /* SavedGifsViewController.swift */,
+				A7F8B1441E7C944000B3F302 /* DetailViewController.swift */,
 				A7F8B1421E7BCB4300B3F302 /* GifCell.swift */,
 				EDFAA91C1CDA9C3100D2CB08 /* AVAssetImageGeneratorTimePoints.swift */,
 				EDFAA91D1CDA9C3100D2CB08 /* Regift.swift */,
@@ -200,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7F8B1451E7C944000B3F302 /* DetailViewController.swift in Sources */,
 				EDFAA9201CDA9C3100D2CB08 /* Regift.swift in Sources */,
 				A7F8B1411E7BBE4200B3F302 /* SavedGifsViewController.swift in Sources */,
 				A7F8B1431E7BCB4300B3F302 /* GifCell.swift in Sources */,

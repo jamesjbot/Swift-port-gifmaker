@@ -17,8 +17,16 @@ class SavedGifsViewController: UIViewController {
 
     // MARK: - Constants
     let cellMargin: CGFloat = 12.0
+    let SaveFileName: String = "SAVEDGIFS"
 
     // MARK: - Variables
+    var saveFileURL: String {
+        // Get the documents directory
+        let directories: [String] = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentDirectoryPath = directories[0]
+        let gifsPath = documentDirectoryPath.appending("/\(SaveFileName)")
+        return gifsPath
+    }
 
     var savedGifs: [Gif] = []
 
@@ -27,7 +35,11 @@ class SavedGifsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        // Retrieve gifs saved from last run
+        if let gifs = NSKeyedUnarchiver.unarchiveObject(withFile: saveFileURL) {
+            savedGifs = gifs as! [Gif]
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +60,8 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return savedGifs.count
     }
+
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GifCell", for: indexPath) as! GifCell
         let gif = savedGifs[indexPath.item]
@@ -55,11 +69,13 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
         return cell
     }
 
+
     // MARK: - UICollectionViewDelegate methods
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
     }
+
 
     // MARK: - UICollectionViewFlowLayoutDelegate methods
 
@@ -77,6 +93,9 @@ extension SavedGifsViewController: PreviewViewControllerDelegate {
         var newGif = Gif(url: gif.url, videoURL: gif.videoURL, caption: gif.caption)
         newGif.gifData = NSData(contentsOf: newGif.url)
         savedGifs.append(newGif)
+
+        // Save every new gif to document directory
+        NSKeyedArchiver.archiveRootObject(savedGifs, toFile: saveFileURL)
     }
 }
 
