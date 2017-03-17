@@ -113,9 +113,9 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         let gifURL = regift.createGif()
         let gif = Gif(url: gifURL!, videoURL: videoURL as URL, caption: nil)
         displayGIF(gif: gif)
-        
     }
-    
+
+
     func cropVideoToSquare(rawVideoURL: URL, start: NSNumber?, duration: NSNumber?) {
         
         //Create the AVAsset and AVAssetTrack
@@ -180,4 +180,28 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         gifEditiorVC.savedGifsViewController = self as! PreviewViewControllerDelegate
         navigationController?.pushViewController(gifEditiorVC, animated: true)
     }
+
+
+    func share(thisGif: Gif) {
+        var animatedGif: NSData?
+        if let gifData = thisGif.gifData {
+            // When used a previously saved gif the NSData is stored and the 
+            // url is now invalid
+            animatedGif =  gifData
+        } else {
+            // When createing a new gif only the url is valid
+            animatedGif =  NSData(contentsOf: thisGif.url)
+        }
+        let itemToShare = [animatedGif]
+        let shareController = UIActivityViewController(activityItems: itemToShare, applicationActivities: nil)
+        shareController.completionWithItemsHandler = {(activity, completed, items, error) in
+            if (completed){
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }
+
+        navigationController?.present(shareController, animated: true, completion: nil)
+    }
+
+
 }

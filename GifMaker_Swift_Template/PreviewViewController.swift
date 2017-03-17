@@ -32,22 +32,11 @@ class PreviewViewController: UIViewController {
                 delegate?.previewVC(preview: gifImage, didSaveGif: gif)
             }
         }
-
         navigationController?.popToRootViewController(animated: true)
     }
 
     @IBAction func shareGif(_ sender: Any) {
-        
-        let animatedGif =  NSData(contentsOf: (gif?.url)!)
-        let itemToShare = [animatedGif]
-        let shareController = UIActivityViewController(activityItems: itemToShare, applicationActivities: nil)
-        shareController.completionWithItemsHandler = {(activity, completed, items, error) in
-            if (completed){
-                self.navigationController?.popToRootViewController(animated: true)
-            }
-        }
-        
-        navigationController?.present(shareController, animated: true, completion: nil)
+        share(thisGif: gif!)
     }
 
     // MARK: - Functions
