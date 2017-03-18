@@ -19,13 +19,23 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
+
         subscribeToKeyboardNotifications()
-        gifImageView.image = gif?.gifImage
-    
+
     }
     
     override func viewDidLoad() {
         captionTextField.delegate = self
+        gifImageView.image = gif?.gifImage
+        let textAttributes: Dictionary = [
+            NSStrokeColorAttributeName : UIColor.black,
+            NSStrokeWidthAttributeName : -4.0,
+            NSForegroundColorAttributeName : UIColor.white,
+            NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!
+            ] as [String : Any]
+        captionTextField.defaultTextAttributes = textAttributes
+        captionTextField.textAlignment = .center
+        captionTextField.placeholder = "Add Caption"
     }
     
     
