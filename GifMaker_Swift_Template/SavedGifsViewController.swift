@@ -12,6 +12,7 @@ import UIKit
 class SavedGifsViewController: UIViewController {
     // MARK: - IBOutlet
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var emptyView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -48,10 +49,12 @@ class SavedGifsViewController: UIViewController {
         // Hide the Image if there are gifs availabe for display
         emptyView.isHidden = (savedGifs.count != 0)
         collectionView.reloadData()
+
+        print("Finsihed calling viewwillappear")
     }
 }
 
-// MARK: - Extensions
+// MARK: -
 
 extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -95,9 +98,12 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
 
 }
 
-// MARK: - PreviewViewControllerDelegate
+// MARK: -
 
 extension SavedGifsViewController: PreviewViewControllerDelegate {
+
+    // MARK: - PreviewViewControllerDelegate
+
     func previewVC(preview: UIImage, didSaveGif gif: Gif) {
         var newGif = Gif(url: gif.url, videoURL: gif.videoURL, caption: gif.caption)
         newGif.gifData = NSData(contentsOf: newGif.url)
@@ -105,6 +111,7 @@ extension SavedGifsViewController: PreviewViewControllerDelegate {
 
         // Save every new gif to document directory
         NSKeyedArchiver.archiveRootObject(savedGifs, toFile: saveFileURL)
+        activityIndicator.stopAnimating()
     }
 }
 
