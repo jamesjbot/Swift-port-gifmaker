@@ -34,8 +34,30 @@ class SavedGifsViewController: UIViewController {
 
     // MARK: - Functions
 
+    func showWelcome() {
+        //if !UserDefaults.standard.bool(forKey: "WelcomeViewSeen") {
+        guard UserDefaults.standard.bool(forKey: "WelcomeViewSeen") == false
+            else {
+                return
+            }
+        let welcomeView = storyboard?.instantiateViewController(withIdentifier: "WelcomeViewController")
+        navigationController?.pushViewController(welcomeView!, animated: true)
+    }
+
+    // MARK: - View Life Cycle Functions
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        showWelcome()
+
+        // Blur the bottom
+        let bottomBlur: CAGradientLayer = CAGradientLayer()
+        bottomBlur.frame = CGRect(x: 0.0, y: view.frame.size.height - 100.0, width: view.frame.size.width, height: 100.0)
+        bottomBlur.colors = [UIColor(white: 1.0, alpha: 0.0), UIColor.green]
+
+        view.layer.insertSublayer(bottomBlur, above: collectionView.layer)
+
 
         // Retrieve gifs saved from last run
         if let gifs = NSKeyedUnarchiver.unarchiveObject(withFile: saveFileURL) {
@@ -47,12 +69,18 @@ class SavedGifsViewController: UIViewController {
         super.viewWillAppear(animated)
 
         // Hide the Image if there are gifs availabe for display
+
         emptyView.isHidden = (savedGifs.count != 0)
+
         collectionView.reloadData()
 
-        print("Finsihed calling viewwillappear")
+        // Hide navigation bar when there are no gifs
+
+        navigationController?.navigationBar.isHidden = savedGifs.count == 0
+
     }
 }
+
 
 // MARK: -
 
