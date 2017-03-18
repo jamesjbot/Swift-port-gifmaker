@@ -147,9 +147,13 @@
                                     </mask>
                                 </variation>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qS4-zr-SFg">
+                                <rect key="frame" x="178" y="324" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="qS4-zr-SFg" firstAttribute="centerX" secondItem="lpB-Vr-Vzf" secondAttribute="centerX" id="KYI-3q-1zh"/>
                             <constraint firstItem="Dhk-Vz-Mtq" firstAttribute="centerX" secondItem="lpB-Vr-Vzf" secondAttribute="centerX" id="U7x-R5-jeA"/>
                             <constraint firstItem="rBY-mr-O59" firstAttribute="centerY" secondItem="lpB-Vr-Vzf" secondAttribute="centerY" id="UJY-xW-Iil"/>
                             <constraint firstItem="zVw-uv-suS" firstAttribute="top" secondItem="Dhk-Vz-Mtq" secondAttribute="bottom" constant="20" id="XQO-Hh-K2j"/>
@@ -157,6 +161,7 @@
                             <constraint firstAttribute="trailing" secondItem="hbv-Kk-KXX" secondAttribute="trailing" id="fTd-Pk-IMI"/>
                             <constraint firstItem="hbv-Kk-KXX" firstAttribute="top" secondItem="lpB-Vr-Vzf" secondAttribute="top" id="pbu-wu-PzH"/>
                             <constraint firstItem="rBY-mr-O59" firstAttribute="centerX" secondItem="lpB-Vr-Vzf" secondAttribute="centerX" id="uum-Fj-rDI"/>
+                            <constraint firstItem="qS4-zr-SFg" firstAttribute="centerY" secondItem="lpB-Vr-Vzf" secondAttribute="centerY" id="yRA-B9-mRJ"/>
                             <constraint firstItem="hbv-Kk-KXX" firstAttribute="leading" secondItem="lpB-Vr-Vzf" secondAttribute="leading" id="yuc-df-xOL"/>
                             <constraint firstItem="hbv-Kk-KXX" firstAttribute="bottom" secondItem="zVw-uv-suS" secondAttribute="top" id="ztB-2Z-tNd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rBY-mr-O59" secondAttribute="trailing" id="zxv-rx-Rz8"/>
@@ -164,6 +169,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="My Collection" id="7HF-Yq-Lti"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="qS4-zr-SFg" id="nw2-SK-Bqa"/>
                         <outlet property="collectionView" destination="hbv-Kk-KXX" id="dwL-XO-Uby"/>
                         <outlet property="emptyView" destination="IOx-EA-SOI" id="T0N-gu-AkR"/>
                     </connections>

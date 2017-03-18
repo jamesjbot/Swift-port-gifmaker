@@ -26,6 +26,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         } else { // Allow the user to choose how they want to import a video.
 
             let newGifActionSheet = UIAlertController(title: "Create new GIF", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+
             let recordVideo = UIAlertAction(title: "Record a Video", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
                 self.launchVideoCamera()
             })
@@ -44,10 +45,22 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         }
     }
 
+    func launchActivityIndicator() {
+        if self is SavedGifsViewController {
+            (self as! SavedGifsViewController).activityIndicator.startAnimating()
+        }
+    }
+
+    func shutdownActivityIndicator() {
+        if self is SavedGifsViewController {
+            (self as! SavedGifsViewController).activityIndicator.stopAnimating()
+        }
+    }
 
     // Select the source as video camera
     func launchVideoCamera() {
-        
+
+        launchActivityIndicator()
         let recordVideoController = pickerControllerWithSource(source: UIImagePickerControllerSourceType.camera)
         present(recordVideoController, animated: true, completion: nil)
         
@@ -55,7 +68,8 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
     // Select the source as video library
     func launchPhotoLibrary(){
-        
+
+        launchActivityIndicator()
         let recordVideoController = pickerControllerWithSource(source: UIImagePickerControllerSourceType.photoLibrary)
         present(recordVideoController, animated: true, completion: nil)
         
@@ -97,6 +111,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     }
     
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        shutdownActivityIndicator()
         dismiss(animated: true, completion: nil)
     }
     
