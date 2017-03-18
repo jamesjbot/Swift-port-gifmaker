@@ -247,8 +247,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lX6-oc-3Ui">
-                                <rect key="frame" x="16" y="198" width="343" height="459"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="lX6-oc-3Ui">
+                                <rect key="frame" x="16" y="204" width="343" height="453"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HQu-c2-zTO">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="343"/>
@@ -256,8 +256,8 @@
                                             <constraint firstAttribute="width" secondItem="HQu-c2-zTO" secondAttribute="height" multiplier="1:1" id="K5r-87-DUU"/>
                                         </constraints>
                                     </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="aqi-WW-nfX">
-                                        <rect key="frame" x="0.0" y="343" width="343" height="116"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="aqi-WW-nfX">
+                                        <rect key="frame" x="0.0" y="348" width="343" height="105"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnU-9g-0xe">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
@@ -277,7 +277,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xoi-MZ-GNH">
-                                                <rect key="frame" x="0.0" y="66" width="343" height="50"/>
+                                                <rect key="frame" x="0.0" y="55" width="343" height="50"/>
                                                 <color key="backgroundColor" red="1" green="0.25490196078431371" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="2fg-hG-msF"/>
@@ -312,6 +312,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="captionImageView" destination="HQu-c2-zTO" id="YHd-yi-MiO"/>
+                        <outlet property="shareButton" destination="lnU-9g-0xe" id="JRY-jP-qdK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KCC-tI-bRp" userLabel="First Responder" sceneMemberID="firstResponder"/>

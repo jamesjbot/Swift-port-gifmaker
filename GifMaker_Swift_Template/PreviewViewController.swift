@@ -20,7 +20,7 @@ class PreviewViewController: UIViewController {
 
     // MARK: - IBOutlets
 
-
+    @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var captionImageView: UIImageView!
 
     // MARK: - IBActions
@@ -44,8 +44,10 @@ class PreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         captionImageView.image = gif?.gifImage
-
-        // Do any additional setup after loading the view.
+        
+        shareButton.layer.borderWidth = 1.0
+        shareButton.layer.borderColor = UIColor(colorLiteralRed: 255.0, green: 65.0, blue: 112.0, alpha: 1.0).cgColor
+        //shareButton.layer.borderColor = UIColor.green.cgColor
     }
 
     override func didReceiveMemoryWarning() {

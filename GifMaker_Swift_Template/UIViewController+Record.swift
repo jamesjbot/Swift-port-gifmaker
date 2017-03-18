@@ -184,6 +184,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         
         outputURL = outputURL.appending("output.mov")
 
+        print(outputURL)
         return outputURL
         
     }
