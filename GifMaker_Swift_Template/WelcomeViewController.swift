@@ -16,9 +16,9 @@ class WelcomeViewController: UIViewController {
         super.viewWillAppear(animated)
         let proofOfConceptGif = UIImage.gif(name: "hotlineBling")
         gifImageView.image = proofOfConceptGif
-        
+        UserDefaults.standard.set(true, forKey: "WelcomeViewSeen")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
