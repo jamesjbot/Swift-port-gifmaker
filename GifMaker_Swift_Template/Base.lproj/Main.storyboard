@@ -172,9 +172,16 @@
                         <outlet property="activityIndicator" destination="qS4-zr-SFg" id="nw2-SK-Bqa"/>
                         <outlet property="collectionView" destination="hbv-Kk-KXX" id="dwL-XO-Uby"/>
                         <outlet property="emptyView" destination="IOx-EA-SOI" id="T0N-gu-AkR"/>
+                        <outlet property="longPressGestureRecognizer" destination="l9e-5F-L9v" id="wG1-BT-Af7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1mO-R1-5Re" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="l9e-5F-L9v">
+                    <connections>
+                        <action selector="longpressHandle:" destination="upq-jB-3dI" id="fAE-e1-ZrR"/>
+                        <outlet property="delegate" destination="upq-jB-3dI" id="HZz-ps-nwD"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1026" y="-784"/>
         </scene>

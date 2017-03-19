@@ -13,6 +13,7 @@
 		7A5E56E61E3A88690030A78F /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E56E51E3A88690030A78F /* PreviewViewController.swift */; };
 		7A5E56E81E3A9ADB0030A78F /* UIImage+gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E56E71E3A9ADA0030A78F /* UIImage+gif.swift */; };
 		7A5E56EA1E3ABD3C0030A78F /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E56E91E3ABD3C0030A78F /* Gif.swift */; };
+		A763226C1E7CE8BD0001028A /* AlertExtensionUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A763226B1E7CE8BD0001028A /* AlertExtensionUIViewController.swift */; };
 		A7F8B1411E7BBE4200B3F302 /* SavedGifsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8B1401E7BBE4200B3F302 /* SavedGifsViewController.swift */; };
 		A7F8B1431E7BCB4300B3F302 /* GifCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8B1421E7BCB4300B3F302 /* GifCell.swift */; };
 		A7F8B1451E7C944000B3F302 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8B1441E7C944000B3F302 /* DetailViewController.swift */; };
@@ -34,6 +35,7 @@
 		7A5E56E51E3A88690030A78F /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		7A5E56E71E3A9ADA0030A78F /* UIImage+gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+gif.swift"; sourceTree = "<group>"; };
 		7A5E56E91E3ABD3C0030A78F /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
+		A763226B1E7CE8BD0001028A /* AlertExtensionUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtensionUIViewController.swift; sourceTree = "<group>"; };
 		A7F8B1401E7BBE4200B3F302 /* SavedGifsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedGifsViewController.swift; sourceTree = "<group>"; };
 		A7F8B1421E7BCB4300B3F302 /* GifCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GifCell.swift; path = GifMaker_Swift_Template/GifCell.swift; sourceTree = SOURCE_ROOT; };
 		A7F8B1441E7C944000B3F302 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 		EDFAA9221CDA9C4700D2CB08 /* Regift Files */ = {
 			isa = PBXGroup;
 			children = (
+				A763226B1E7CE8BD0001028A /* AlertExtensionUIViewController.swift */,
 				A7F8B1401E7BBE4200B3F302 /* SavedGifsViewController.swift */,
 				A7F8B1441E7C944000B3F302 /* DetailViewController.swift */,
 				A7F8B1421E7BCB4300B3F302 /* GifCell.swift */,
@@ -209,6 +212,7 @@
 				A7F8B1431E7BCB4300B3F302 /* GifCell.swift in Sources */,
 				7A5E56E01E3A86570030A78F /* UIViewController+Record.swift in Sources */,
 				7A5E56E41E3A885C0030A78F /* GifEditorViewController.swift in Sources */,
+				A763226C1E7CE8BD0001028A /* AlertExtensionUIViewController.swift in Sources */,
 				EDFAA9211CDA9C3100D2CB08 /* RegiftCaption.swift in Sources */,
 				7A5E56EA1E3ABD3C0030A78F /* Gif.swift in Sources */,
 				7A5E56E21E3A884B0030A78F /* WelcomeViewController.swift in Sources */,

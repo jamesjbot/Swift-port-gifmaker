@@ -9,12 +9,60 @@
 import Foundation
 import UIKit
 
-class SavedGifsViewController: UIViewController {
+class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - IBOutlet
 
+    @IBOutlet weak var longPressGestureRecognizer: UILongPressGestureRecognizer!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var emptyView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
+
+    @IBAction func longpressHandle(_ sender: UILongPressGestureRecognizer) {
+        func deleteGif (atItemPosition: IndexPath) {
+            savedGifs.remove(at: atItemPosition.item)
+            collectionView.reloadData()
+            save(theseGifsToDisk: savedGifs)
+        }
+
+        switch sender.state {
+        case UIGestureRecognizerState.began:
+            let point = sender.location(in: collectionView)
+            let indexpath = collectionView.indexPathForItem(at: point)
+            let action = UIAlertAction(title: "Delete Gif",
+                                       style: .destructive,
+                                       handler:  { (alert: UIAlertAction!) in
+                                        deleteGif(atItemPosition: indexpath!) })
+            displayAlertWindow(title: "Delete Gif?", msg: "Delete this Gif?", actions: [action])
+        case UIGestureRecognizerState.changed: break
+            // Move floating annotation
+//            mapView.removeAnnotation(floatingAnnotation)
+//            let coordinateOnMap = mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView)
+//            let annotation = MKPointAnnotation()
+//            annotation.coordinate = coordinateOnMap
+//            mapView.addAnnotation(annotation)
+//            floatingAnnotation = annotation
+
+        case UIGestureRecognizerState.ended:
+            print("UIGestureRecognizerEnded")
+            break
+//            insertPinIntoCoreData()
+//            // Clear out floating annotation
+//            floatingAnnotation = nil
+
+        case UIGestureRecognizerState.cancelled:
+            break
+
+        case UIGestureRecognizerState.failed:
+            break
+
+        case UIGestureRecognizerState.possible:
+            print("UIGestureRecognizer Possible")
+            break
+
+        default:
+            break
+        }
+    }
 
     // MARK: - Constants
     let cellMargin: CGFloat = 12.0
@@ -49,6 +97,9 @@ class SavedGifsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        longPressGestureRecognizer.minimumPressDuration = 0.25
+        collectionView.addGestureRecognizer(longPressGestureRecognizer)
+
         showWelcome()
 
         // Blur the bottom
@@ -57,7 +108,6 @@ class SavedGifsViewController: UIViewController {
         bottomBlur.colors = [UIColor(white: 1.0, alpha: 0.0), UIColor.green]
 
         view.layer.insertSublayer(bottomBlur, above: collectionView.layer)
-
 
         // Retrieve gifs saved from last run
         if let gifs = NSKeyedUnarchiver.unarchiveObject(withFile: saveFileURL) {
@@ -77,7 +127,7 @@ class SavedGifsViewController: UIViewController {
         // Hide navigation bar when there are no gifs
 
         navigationController?.navigationBar.isHidden = savedGifs.count == 0
-
+        
     }
 }
 
@@ -138,9 +188,19 @@ extension SavedGifsViewController: PreviewViewControllerDelegate {
         savedGifs.append(newGif)
 
         // Save every new gif to document directory
-        NSKeyedArchiver.archiveRootObject(savedGifs, toFile: saveFileURL)
+        save(theseGifsToDisk: savedGifs)
         activityIndicator.stopAnimating()
     }
+
+    func save(theseGifsToDisk gifs: [Gif]) {
+        NSKeyedArchiver.archiveRootObject(gifs, toFile: saveFileURL)
+    }
 }
+
+// MARK: -
+
+
+
+
 
 
