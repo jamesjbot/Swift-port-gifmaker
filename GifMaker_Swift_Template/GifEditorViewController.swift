@@ -36,6 +36,9 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
         captionTextField.defaultTextAttributes = textAttributes
         captionTextField.textAlignment = .center
         captionTextField.placeholder = "Add Caption"
+        
+        // Always show the navigation bar on this screen
+        navigationController?.navigationBar.isHidden = false
     }
     
     
