@@ -67,6 +67,8 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
         launchActivityIndicator()
         let recordVideoController = pickerControllerWithSource(source: UIImagePickerControllerSourceType.camera)
+        // Allow start and end on the video picker
+        recordVideoController.allowsEditing = true
         present(recordVideoController, animated: true, completion: nil)
         
     }
@@ -76,7 +78,9 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     func launchPhotoLibrary(){
 
         launchActivityIndicator()
-        let recordVideoController = pickerControllerWithSource(source: UIImagePickerControllerSourceType.photoLibrary)
+        let recordVideoController = pickerControllerWithSource(source: .savedPhotosAlbum)
+        // Since this version of Swift doesn't allow trimming information to be pased back
+        recordVideoController.allowsEditing = false
         present(recordVideoController, animated: true, completion: nil)
         
     }
@@ -88,7 +92,6 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         let picker = UIImagePickerController()
         picker.sourceType = source
         picker.mediaTypes = [kUTTypeMovie as String]
-        picker.allowsEditing = true
         picker.delegate = self
         return picker
         
