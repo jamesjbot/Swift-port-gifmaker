@@ -45,17 +45,22 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         }
     }
 
+
+    // Start activity indicator if view is SavedGifsView
     func launchActivityIndicator() {
         if self is SavedGifsViewController {
             (self as! SavedGifsViewController).activityIndicator.startAnimating()
         }
     }
 
+
+    // Stop activity indicator if view is SavedGifsView
     func shutdownActivityIndicator() {
         if self is SavedGifsViewController {
             (self as! SavedGifsViewController).activityIndicator.stopAnimating()
         }
     }
+
 
     // Select the source as video camera
     func launchVideoCamera() {
@@ -66,6 +71,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         
     }
 
+
     // Select the source as video library
     func launchPhotoLibrary(){
 
@@ -74,6 +80,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         present(recordVideoController, animated: true, completion: nil)
         
     }
+
 
     // Returns a UIImagePickerController bound to a specific source
     func pickerControllerWithSource(source: UIImagePickerControllerSourceType) -> UIImagePickerController{
@@ -109,12 +116,14 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
             dismiss(animated: true, completion: nil)
         }
     }
-    
+
+
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         shutdownActivityIndicator()
         dismiss(animated: true, completion: nil)
     }
-    
+
+
     // Convert to gif, asynchronously called after video is cropped to square.
     func convertVideoToGIF(videoURL: URL, start: NSNumber?, duration: NSNumber?){
         
@@ -170,8 +179,9 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         })
         
     }
-    
-    func createPath() -> String{
+
+    // Creates output path for
+    func createPath() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
         var outputURL = documentsDirectory.appending("/output/")
@@ -188,6 +198,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         return outputURL
         
     }
+
 
     // Dependency inject gif into the GifEditorViewController
     func displayGIF(gif: Gif){
