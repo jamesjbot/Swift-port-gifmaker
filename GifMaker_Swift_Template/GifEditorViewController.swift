@@ -22,7 +22,7 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
     // MARK: VIEW LIFE CYCLE METHODS
 
     override func viewWillAppear(_ animated: Bool) {
-        
+        print("GifEdit view will appear called")
         super.viewWillAppear(animated)
 
         subscribeToKeyboardNotifications()
@@ -46,6 +46,7 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
                 NSForegroundColorAttributeName : UIColor.white,
                 NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!
                 ] as [String : Any]
+            self.captionTextField.autocapitalizationType = UITextAutocapitalizationType.allCharacters
             self.captionTextField.defaultTextAttributes = textAttributes
             self.captionTextField.textAlignment = .center
             self.captionTextField.placeholder = "Add Caption"
