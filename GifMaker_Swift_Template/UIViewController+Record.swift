@@ -102,7 +102,9 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let mediaType = info[UIImagePickerControllerMediaType] as! String
-        
+
+        // Note as of Swift 3 trimming on photolibrary movies does not generate start and end information.
+
         if mediaType == kUTTypeMovie as String{
             let videoURL = info[UIImagePickerControllerMediaURL] as! URL
             let start: NSNumber? = info["_UIImagePickerControllerVideoEditingStart"]as! NSNumber?
@@ -113,7 +115,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
             } else{
                 duration = nil
             }
-            
+
             cropVideoToSquare(rawVideoURL: videoURL, start: start, duration: duration)
             // Dismiss the imagePicker
             dismiss(animated: true, completion: nil)
@@ -142,32 +144,32 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         displayGIF(gif: gif)
     }
 
-
     func cropVideoToSquare(rawVideoURL: URL, start: NSNumber?, duration: NSNumber?) {
-        
+
         //Create the AVAsset and AVAssetTrack
         let videoAsset = AVAsset(url: rawVideoURL)
         let videoTrack = videoAsset.tracks(withMediaType: AVMediaTypeVideo)[0]
-        
+
         // Crop to square
         let videoComposition = AVMutableVideoComposition()
         videoComposition.renderSize = CGSize(width: videoTrack.naturalSize.height, height: videoTrack.naturalSize.height)
         print(videoComposition.renderSize)
         videoComposition.frameDuration = CMTimeMake(1, 30)
-        
+
         let instruction = AVMutableVideoCompositionInstruction()
         instruction.timeRange = CMTimeRangeMake(kCMTimeZero, CMTime(seconds: 60, preferredTimescale: 30))
-        
+
         // rotate to portrait
         let transformer = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
         let firstTransform = CGAffineTransform(translationX: videoTrack.naturalSize.height, y: -(videoTrack.naturalSize.width-videoTrack.naturalSize.height)/2.0)
+        // Turn portrait into landscape videos
         let secondTransform = firstTransform.rotated(by: CGFloat(M_PI_2))
-        
+
         let finalTransform = secondTransform
         transformer.setTransform(finalTransform, at: kCMTimeZero)
         instruction.layerInstructions = [transformer]
         videoComposition.instructions = [instruction]
-        
+
         //export
         let exporter = AVAssetExportSession(asset: videoAsset, presetName: AVAssetExportPresetHighestQuality)!
         print(videoComposition.renderSize)
@@ -180,10 +182,10 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
             let squareURL = exporter.outputURL!
             self.convertVideoToGIF(videoURL: squareURL, start: start, duration: duration)
         })
-        
     }
 
-    // Creates output path for
+
+    // Creates output path for video after it has been cropped to square
     func createPath() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
