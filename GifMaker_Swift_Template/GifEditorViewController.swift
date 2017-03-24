@@ -53,8 +53,6 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
             // Always show the navigation bar on this screen
             self.navigationController?.navigationBar.isHidden = false
-            // Show the word back instead of the title name
-            self.navigationItem.backBarButtonItem?.title = "Back"
         }
     }
     
