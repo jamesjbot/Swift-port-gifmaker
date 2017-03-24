@@ -32,9 +32,6 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
 
-        DispatchQueue.main.async {
-            print("GifEditor view did load called")
-
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
 
             self.captionTextField.delegate = self
@@ -53,7 +50,6 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
             // Always show the navigation bar on this screen
             self.navigationController?.navigationBar.isHidden = false
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
