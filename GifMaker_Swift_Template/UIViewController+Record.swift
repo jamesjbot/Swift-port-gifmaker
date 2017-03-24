@@ -216,13 +216,14 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
     // Dependency inject gif into the GifEditorViewController
     func displayGIF(gif: Gif){
-        print("displayGif called")
         let gifEditiorVC = storyboard?.instantiateViewController(withIdentifier: "GifEditorViewController") as! GifEditorViewController
         gifEditiorVC.gif = gif
+
+        // Dependency inject the savedGifsViewController into the gifEditor
         gifEditiorVC.savedGifsViewController = self as! PreviewViewControllerDelegate
-        print("displayGif pushingGifEditor")
-        navigationController?.pushViewController(gifEditiorVC, animated: true)
-        print("displayGif exited")
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(gifEditiorVC, animated: true)
+        }
     }
 
 
