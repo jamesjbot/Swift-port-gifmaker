@@ -102,6 +102,9 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Puts Back label on all subsequent navigation view controllers.
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+
         longPressGestureRecognizer.minimumPressDuration = 0.25
         collectionView.addGestureRecognizer(longPressGestureRecognizer)
 
