@@ -189,17 +189,16 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     func createPath() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
-        var outputURL = documentsDirectory.appending("/output/")
-        
+        var outputURL = documentsDirectory.appending("/output/\(NSDate.timeIntervalSinceReferenceDate)")
+
         do{
             try FileManager.default.createDirectory(atPath: outputURL, withIntermediateDirectories: true, attributes: nil)
         } catch let error as NSError{
             print(error.localizedDescription)
         }
-        
-        outputURL = outputURL.appending("output.mov")
 
-        print(outputURL)
+        outputURL = outputURL.appending("squareoutput.mov")
+
         return outputURL
         
     }
