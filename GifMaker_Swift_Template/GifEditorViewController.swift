@@ -21,7 +21,7 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
     @IBAction func presentPreview(_ sender: Any) {
 
         // Create preview
-        let previewVC = self.storyboard?.instantiateViewController(withIdentifier: "PreviewViewController") as! PreviewViewController
+        let previewVC = storyboard?.instantiateViewController(withIdentifier: "PreviewViewController") as! PreviewViewController
         previewVC.delegate = savedGifsViewController
 
         // Prepare gif and dependency inject it into new viewcontroller
@@ -58,24 +58,24 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
 
             // Create a backbutton that will override the title in the next pushed on view
-            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
 
             // Set caption properties
-            self.captionTextField.delegate = self
-            self.gifImageView.image = self.gif?.gifImage
+            captionTextField.delegate = self
+            gifImageView.image = gif?.gifImage
             let textAttributes: Dictionary = [
                 NSStrokeColorAttributeName : UIColor.black,
                 NSStrokeWidthAttributeName : -4.0,
                 NSForegroundColorAttributeName : UIColor.white,
                 NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!
                 ] as [String : Any]
-            self.captionTextField.autocapitalizationType = UITextAutocapitalizationType.allCharacters
-            self.captionTextField.defaultTextAttributes = textAttributes
-            self.captionTextField.textAlignment = .center
-            self.captionTextField.placeholder = "Add Caption"
+            captionTextField.autocapitalizationType = UITextAutocapitalizationType.allCharacters
+            captionTextField.defaultTextAttributes = textAttributes
+            captionTextField.textAlignment = .center
+            captionTextField.placeholder = "Add Caption"
 
             // Always show the navigation bar on this screen
-            self.navigationController?.navigationBar.isHidden = false
+            navigationController?.navigationBar.isHidden = false
     }
 
 
@@ -124,19 +124,19 @@ extension GifEditorViewController {
 
 
     func keyboardWillShow(notification: NSNotification){
-        if (self.view.frame.origin.y >= 0){
-            var rect = self.view.frame
+        if (view.frame.origin.y >= 0){
+            var rect = view.frame
             rect.origin.y -= getKeyboardHeight(notification: notification)
-            self.view.frame = rect
+            view.frame = rect
         }
     }
 
 
     func keyboardWillHide(notification: NSNotification){
-        if (self.view.frame.origin.y < 0){
-            var rect = self.view.frame
+        if (view.frame.origin.y < 0){
+            var rect = view.frame
             rect.origin.y += getKeyboardHeight(notification: notification)
-            self.view.frame = rect
+            view.frame = rect
         }
     }
 
