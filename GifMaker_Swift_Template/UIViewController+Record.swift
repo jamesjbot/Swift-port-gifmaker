@@ -101,6 +101,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     // MARK: - UIImagePickerControllerDelegate Methods
 
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        print("DidfinishPickingMediaWithInfo called")
         let mediaType = info[UIImagePickerControllerMediaType] as! String
 
         // Note as of Swift 3 trimming on photolibrary movies does not generate start and end information.
@@ -118,7 +119,9 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
             cropVideoToSquare(rawVideoURL: videoURL, start: start, duration: duration)
             // Dismiss the imagePicker
+            print("exiting DidfinishpickingMediaWithInfo")
             dismiss(animated: true, completion: nil)
+            print("After dismiss in didFinishPickingMdiaWithInfo")
         }
     }
 
@@ -131,16 +134,19 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
     // Convert to gif, asynchronously called after video is cropped to square.
     func convertVideoToGIF(videoURL: URL, start: NSNumber?, duration: NSNumber?){
-        
+
         let regift: Regift
         if (start == nil){
+            // Untrimmed video
             regift = Regift(sourceFileURL: videoURL as URL, destinationFileURL: nil, frameCount: frameCount, delayTime: delayTime, loopCount: loopCount)
         } else{
+            // Trimmed video
             regift = Regift(sourceFileURL: videoURL as URL, destinationFileURL: nil, startTime: (start?.floatValue)!, duration: (duration?.floatValue)!, frameRate: frameCount, loopCount: loopCount)
         }
 
         let gifURL = regift.createGif()
         let gif = Gif(url: gifURL!, videoURL: videoURL as URL, caption: nil)
+        print("convert squared video to gif calling displayGIF")
         displayGIF(gif: gif)
     }
 
@@ -200,19 +206,22 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         outputURL = outputURL.appending("squareoutput.mov")
 
         return outputURL
-        
     }
 
 
     // Dependency inject gif into the GifEditorViewController
     func displayGIF(gif: Gif){
+        print("displayGif called")
         let gifEditiorVC = storyboard?.instantiateViewController(withIdentifier: "GifEditorViewController") as! GifEditorViewController
         gifEditiorVC.gif = gif
         gifEditiorVC.savedGifsViewController = self as! PreviewViewControllerDelegate
+        print("displayGif pushingGifEditor")
         navigationController?.pushViewController(gifEditiorVC, animated: true)
+        print("displayGif exited")
     }
 
 
+    // Presents action sheet to share gif
     func share(thisGif: Gif) {
         var animatedGif: NSData?
         if let gifData = thisGif.gifData {
