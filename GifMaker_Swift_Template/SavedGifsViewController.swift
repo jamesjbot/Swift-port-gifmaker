@@ -16,11 +16,16 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
     let Margins_Per_Image: CGFLoat = 2.0
 
     // MARK: - IBOutlet
+    @IBOutlet weak var longpressLabel: UILabel!
+    @IBOutlet weak var letsCreateLabel: UILabel!
 
     @IBOutlet weak var longPressGestureRecognizer: UILongPressGestureRecognizer!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var emptyView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
+
+
+    // MARK: - IBACTIONS
 
     @IBAction func longpressHandle(_ sender: UILongPressGestureRecognizer) {
         func deleteGif (atItemPosition: IndexPath) {
@@ -101,6 +106,7 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationController?.pushViewController(welcomeView!, animated: true)
     }
 
+
     // MARK: - View Life Cycle Functions
 
     override func viewDidLoad() {
@@ -127,17 +133,40 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        // Hide the Image if there are gifs availabe for display
+        turnOnAndOffUIElements()
 
-        emptyView.isHidden = (savedGifs.count != 0)
-
-        collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            self.collectionView.setNeedsDisplay()
+        }
 
         // Hide navigation bar when there are no gifs
 
         navigationController?.navigationBar.isHidden = savedGifs.count == 0
-        
+
+        // Stop spinner
+        // shutdownActivityIndicator()
+
+        print("SavedGifs ViewWillAppear Exited")
+
     }
+
+    // Toggles certain UI labels and images when the user gets more used
+    // to the interface
+    func turnOnAndOffUIElements() {
+        longpressLabel.isHidden = false
+        letsCreateLabel.isHidden = false
+
+        // Hide the Image if there are gifs availabe for display
+        emptyView.isHidden = (savedGifs.count != 0)
+        longpressLabel.isHidden = !(savedGifs.count != 0)
+
+        if savedGifs.count > 2 {
+            longpressLabel.isHidden = true
+            letsCreateLabel.isHidden = true
+        }
+    }
+
 }
 
 
