@@ -10,6 +10,11 @@ import Foundation
 import UIKit
 
 class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
+
+    // MARK: - CONSTANTS
+    let Images_Per_Row: CGFloat = 2.0
+    let Margins_Per_Image: CGFLoat = 2.0
+
     // MARK: - IBOutlet
 
     @IBOutlet weak var longPressGestureRecognizer: UILongPressGestureRecognizer!
@@ -174,7 +179,13 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
     // MARK: - UICollectionViewFlowLayoutDelegate methods
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.frame.width - (cellMargin * 2.0))/2.0
+        let numberOfMargins: CGFloat!
+        if Images_Per_Row > 2 {
+            margins = (Margins_Per_Image * Images_Per_Row)
+        } else {
+            margins = (Margins_Per_Image)
+        }
+        let width = (collectionView.frame.width - (cellMargin * margins))/Images_Per_Row
         return CGSize(width: width, height: width)
     }
 
