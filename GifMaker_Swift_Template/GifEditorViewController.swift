@@ -1,4 +1,4 @@
- //
+//
 //  GifEditorViewController.swift
 //  GifMaker_Swift_Template
 //
@@ -12,7 +12,7 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var captionTextField: UITextField!
     @IBOutlet weak var gifImageView: UIImageView!
-    
+
     var gif:Gif?
     var savedGifsViewController: PreviewViewControllerDelegate!
 
@@ -23,7 +23,8 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
         subscribeToKeyboardNotifications()
 
     }
-    
+
+
     override func viewDidLoad() {
         captionTextField.delegate = self
         gifImageView.image = gif?.gifImage
@@ -41,20 +42,26 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
         navigationController?.navigationBar.isHidden = false
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
+
+    // MARK: TEXT FIELD EDITING METHODS
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.placeholder = ""
     }
-    
+
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
+
+
+    // MARK: IBACTIONS
+
     @IBAction func presentPreview(_ sender: Any) {
         
         let previewVC = self.storyboard?.instantiateViewController(withIdentifier: "PreviewViewController") as! PreviewViewController
@@ -68,13 +75,12 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
         let newGif = Gif(url: gifURL!, videoURL: (gif?.videoURL)!, caption: captionTextField.text)
         previewVC.gif = newGif
         navigationController?.pushViewController(previewVC, animated: true)
-
-        
-        
     }
 }
 
-extension GifEditorViewController{
+
+extension GifEditorViewController {
+    // MARK: KEYBOARD ELEVEVATING METHODS
     func subscribeToKeyboardNotifications(){
         NotificationCenter.default.addObserver(self, selector: #selector(GifEditorViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(GifEditorViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
