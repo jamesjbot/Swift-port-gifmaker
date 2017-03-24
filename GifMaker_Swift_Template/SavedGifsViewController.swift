@@ -47,21 +47,12 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
                                        handler:  { (alert: UIAlertAction!) in
                                         deleteGif(atItemPosition: indexpath!) })
             displayAlertWindow(title: "Delete Gif?", msg: "Delete this Gif?", actions: [action])
-        case UIGestureRecognizerState.changed: break
-            // Move floating annotation
-//            mapView.removeAnnotation(floatingAnnotation)
-//            let coordinateOnMap = mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView)
-//            let annotation = MKPointAnnotation()
-//            annotation.coordinate = coordinateOnMap
-//            mapView.addAnnotation(annotation)
-//            floatingAnnotation = annotation
+        case UIGestureRecognizerState.changed:
+            break
 
         case UIGestureRecognizerState.ended:
             print("UIGestureRecognizerEnded")
             break
-//            insertPinIntoCoreData()
-//            // Clear out floating annotation
-//            floatingAnnotation = nil
 
         case UIGestureRecognizerState.cancelled:
             break
@@ -97,7 +88,6 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Functions
 
     func showWelcome() {
-        //if !UserDefaults.standard.bool(forKey: "WelcomeViewSeen") {
         guard UserDefaults.standard.bool(forKey: "WelcomeViewSeen") == false
             else {
                 return
@@ -141,7 +131,6 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
         }
 
         // Hide navigation bar when there are no gifs
-
         navigationController?.navigationBar.isHidden = savedGifs.count == 0
 
         // Stop spinner
