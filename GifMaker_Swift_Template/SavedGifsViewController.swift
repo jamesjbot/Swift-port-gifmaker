@@ -13,7 +13,7 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - CONSTANTS
     let Images_Per_Row: CGFloat = 2.0
-    let Margins_Per_Image: CGFLoat = 2.0
+    let Margins_Per_Image: CGFloat = 2.0
 
     // MARK: - IBOutlet
     @IBOutlet weak var longpressLabel: UILabel!
@@ -210,11 +210,11 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numberOfMargins: CGFloat!
         if Images_Per_Row > 2 {
-            margins = (Margins_Per_Image * Images_Per_Row)
+            numberOfMargins = (Margins_Per_Image * Images_Per_Row)
         } else {
-            margins = (Margins_Per_Image)
+            numberOfMargins = (Margins_Per_Image)
         }
-        let width = (collectionView.frame.width - (cellMargin * margins))/Images_Per_Row
+        let width = (collectionView.frame.width - (cellMargin * numberOfMargins))/Images_Per_Row
         return CGSize(width: width, height: width)
     }
 
