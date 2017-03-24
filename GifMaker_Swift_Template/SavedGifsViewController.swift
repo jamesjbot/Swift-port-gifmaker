@@ -28,6 +28,10 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
         case UIGestureRecognizerState.began:
             let point = sender.location(in: collectionView)
             let indexpath = collectionView.indexPathForItem(at: point)
+            // Do not delete if there is no UICollectionViewCell there.
+            guard indexpath != nil else {
+                return
+            }
             let action = UIAlertAction(title: "Delete Gif",
                                        style: .destructive,
                                        handler:  { (alert: UIAlertAction!) in
