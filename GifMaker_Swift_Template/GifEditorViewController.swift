@@ -61,6 +61,10 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
+        // Stop the activity indicator on the SavedGifsViewController screen
+        if (isMovingFromParentViewController) {
+            navigationController?.viewControllers[0].shutdownActivityIndicator()
+        }
     }
 
     // MARK: TEXT FIELD EDITING METHODS
