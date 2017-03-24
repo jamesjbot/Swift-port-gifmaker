@@ -128,11 +128,6 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
 
         turnOnAndOffUIElements()
 
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            self.collectionView.setNeedsDisplay()
-        }
-
         // Hide navigation bar when there are no gifs
         navigationController?.navigationBar.isHidden = savedGifs.count == 0
 
@@ -258,6 +253,12 @@ extension SavedGifsViewController: PreviewViewControllerDelegate {
         save(theseGifsToDisk: savedGifs)
         activityIndicator.stopAnimating()
     }
+
+
+    func reloadCollection() {
+        collectionView.reloadData()
+    }
+
 
     func save(theseGifsToDisk gifs: [Gif]) {
         NSKeyedArchiver.archiveRootObject(gifs, toFile: saveFileURL)
