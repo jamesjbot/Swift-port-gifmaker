@@ -10,8 +10,13 @@ import UIKit
 
 class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
+    // MARK: IBOUTLETS
+
     @IBOutlet weak var captionTextField: UITextField!
     @IBOutlet weak var gifImageView: UIImageView!
+
+
+    // MARK: VARIABLES
 
     var gif:Gif?
     var savedGifsViewController: PreviewViewControllerDelegate!
@@ -51,7 +56,8 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
             // Always show the navigation bar on this screen
             self.navigationController?.navigationBar.isHidden = false
     }
-    
+
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
@@ -60,6 +66,7 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
             navigationController?.viewControllers[0].shutdownActivityIndicator()
         }
     }
+
 
     // MARK: TEXT FIELD EDITING METHODS
 
@@ -94,17 +101,21 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
 
 extension GifEditorViewController {
+
     // MARK: KEYBOARD ELEVEVATING METHODS
+
     func subscribeToKeyboardNotifications(){
         NotificationCenter.default.addObserver(self, selector: #selector(GifEditorViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(GifEditorViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-    
+
+
     func unsubscribeFromKeyboardNotifications(){
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-    
+
+
     func keyboardWillShow(notification: NSNotification){
         if (self.view.frame.origin.y >= 0){
             var rect = self.view.frame
@@ -112,7 +123,8 @@ extension GifEditorViewController {
             self.view.frame = rect
         }
     }
-    
+
+
     func keyboardWillHide(notification: NSNotification){
         if (self.view.frame.origin.y < 0){
             var rect = self.view.frame
@@ -120,6 +132,7 @@ extension GifEditorViewController {
             self.view.frame = rect
         }
     }
+
     
     func getKeyboardHeight(notification: NSNotification) -> CGFloat{
         let userInfo = notification.userInfo
