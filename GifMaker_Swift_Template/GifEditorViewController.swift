@@ -22,6 +22,9 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
         // Create preview
         let previewVC = storyboard?.instantiateViewController(withIdentifier: "PreviewViewController") as! PreviewViewController
+
+        // Dependency inject the savedGifsViewController into
+        // the preview view controller
         previewVC.delegate = savedGifsViewController
 
         // Prepare gif and dependency inject it into new viewcontroller
@@ -31,13 +34,14 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
         let newGif = Gif(url: gifURL!, videoURL: (gif?.videoURL)!, caption: captionTextField.text)
         previewVC.gif = newGif
 
-        // Push preview
+        // Push preview view controller
         navigationController?.pushViewController(previewVC, animated: true)
     }
 
 
     // MARK: VARIABLES
 
+    // Dependency Injected Variables
     var gif:Gif?
     var savedGifsViewController: PreviewViewControllerDelegate!
 
