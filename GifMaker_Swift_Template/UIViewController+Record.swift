@@ -183,7 +183,12 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         let path = createPath()
         exporter.outputURL = NSURL(fileURLWithPath: path) as URL
         exporter.outputFileType = AVFileTypeQuickTimeMovie
-        
+
+        // Launch Activity infidator
+        if self is SavedGifsViewController {
+            launchActivityIndicator()
+        }
+
         exporter.exportAsynchronously(completionHandler: {
             let squareURL = exporter.outputURL!
             self.convertVideoToGIF(videoURL: squareURL, start: start, duration: duration)
