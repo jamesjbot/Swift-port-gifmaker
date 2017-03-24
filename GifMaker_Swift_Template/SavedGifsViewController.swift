@@ -194,8 +194,39 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
 
         navigationController?.pushViewController(detailView, animated: true)
 
+        // FIXME: Online Solution says this helps
+        // http://stackoverflow.com/questions/32356352/uiimageview-animated-doesnt-work-properly-inside-uicollectionviewcell
+        animateCell(inCollection: collectionView, indexPath: indexPath)
     }
 
+
+    func animateCell(inCollection: UICollectionView, indexPath: IndexPath) {
+        // FIXME: Online Solution says this helps
+        if let cell = collectionView.cellForItem(at: indexPath) as? GifCell{
+            cell.gifImageView.startAnimating()
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        animateCell(inCollection: collectionView, indexPath: indexPath)
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        animateCell(inCollection: collectionView, indexPath: indexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        animateCell(inCollection: collectionView, indexPath: indexPath)
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print("+++++++++ Will display called on indexpath \(indexPath)")
+        print("Selected Items:")
+        print(collectionView.indexPathsForSelectedItems)
+        animateCell(inCollection: collectionView, indexPath: indexPath)
+    }
 
     // MARK: - UICollectionViewFlowLayoutDelegate methods
 
