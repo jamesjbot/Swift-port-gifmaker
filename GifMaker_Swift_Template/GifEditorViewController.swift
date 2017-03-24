@@ -20,14 +20,18 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func presentPreview(_ sender: Any) {
 
+        // Create preview
         let previewVC = self.storyboard?.instantiateViewController(withIdentifier: "PreviewViewController") as! PreviewViewController
         previewVC.delegate = savedGifsViewController
 
+        // Prepare gif and dependency inject it into new viewcontroller
         gif?.caption = captionTextField.text
         let regift = Regift(sourceFileURL: (gif?.videoURL)!, destinationFileURL: nil, frameCount: frameCount, delayTime: delayTime, loopCount: loopCount)
         let gifURL = regift.createGif(caption: captionTextField.text, font: captionTextField.font)
         let newGif = Gif(url: gifURL!, videoURL: (gif?.videoURL)!, caption: captionTextField.text)
         previewVC.gif = newGif
+
+        // Push preview
         navigationController?.pushViewController(previewVC, animated: true)
     }
 
@@ -43,7 +47,7 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
     // MARK: VIEW LIFE CYCLE METHODS
 
     override func viewWillAppear(_ animated: Bool) {
-        print("GifEdit view will appear called")
+
         super.viewWillAppear(animated)
 
         subscribeToKeyboardNotifications()
@@ -53,10 +57,11 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
 
+            // Create a backbutton that will override the title in the next pushed on view
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
 
+            // Set caption properties
             self.captionTextField.delegate = self
-
             self.gifImageView.image = self.gif?.gifImage
             let textAttributes: Dictionary = [
                 NSStrokeColorAttributeName : UIColor.black,
@@ -75,9 +80,13 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
 
     override func viewWillDisappear(_ animated: Bool) {
+
         super.viewWillDisappear(animated)
+
         unsubscribeFromKeyboardNotifications()
-        // Stop the activity indicator on the SavedGifsViewController screen
+
+        // When abandoning edit stop the activity indicator
+        // on the SavedGifsViewController screen
         if (isMovingFromParentViewController) {
             navigationController?.viewControllers[0].shutdownActivityIndicator()
         }
