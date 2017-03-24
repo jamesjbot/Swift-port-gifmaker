@@ -16,6 +16,11 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
     var gif:Gif?
     var savedGifsViewController: PreviewViewControllerDelegate!
 
+
+    // MARK: FUNCTIONS
+
+    // MARK: VIEW LIFE CYCLE METHODS
+
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
@@ -26,20 +31,30 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
 
     override func viewDidLoad() {
-        captionTextField.delegate = self
-        gifImageView.image = gif?.gifImage
-        let textAttributes: Dictionary = [
-            NSStrokeColorAttributeName : UIColor.black,
-            NSStrokeWidthAttributeName : -4.0,
-            NSForegroundColorAttributeName : UIColor.white,
-            NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!
-            ] as [String : Any]
-        captionTextField.defaultTextAttributes = textAttributes
-        captionTextField.textAlignment = .center
-        captionTextField.placeholder = "Add Caption"
-        
-        // Always show the navigation bar on this screen
-        navigationController?.navigationBar.isHidden = false
+
+        DispatchQueue.main.async {
+            print("GifEditor view did load called")
+
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+
+            self.captionTextField.delegate = self
+
+            self.gifImageView.image = self.gif?.gifImage
+            let textAttributes: Dictionary = [
+                NSStrokeColorAttributeName : UIColor.black,
+                NSStrokeWidthAttributeName : -4.0,
+                NSForegroundColorAttributeName : UIColor.white,
+                NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!
+                ] as [String : Any]
+            self.captionTextField.defaultTextAttributes = textAttributes
+            self.captionTextField.textAlignment = .center
+            self.captionTextField.placeholder = "Add Caption"
+
+            // Always show the navigation bar on this screen
+            self.navigationController?.navigationBar.isHidden = false
+            // Show the word back instead of the title name
+            self.navigationItem.backBarButtonItem?.title = "Back"
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
