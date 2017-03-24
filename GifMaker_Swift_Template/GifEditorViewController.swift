@@ -56,6 +56,10 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
         subscribeToKeyboardNotifications()
 
+        // Turn off the activitiy indicator in the root view because the 
+        // video conversion process is complete.
+        navigationController?.viewControllers[0].shutdownActivityIndicator()
+
     }
 
 
@@ -88,12 +92,6 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
         super.viewWillDisappear(animated)
 
         unsubscribeFromKeyboardNotifications()
-
-        // When abandoning edit stop the activity indicator
-        // on the SavedGifsViewController screen
-        if (isMovingFromParentViewController) {
-            navigationController?.viewControllers[0].shutdownActivityIndicator()
-        }
     }
 
 
