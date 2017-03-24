@@ -104,16 +104,16 @@
                                     <action selector="presentVideoOptions" destination="upq-jB-3dI" eventType="touchUpInside" id="FaG-QB-ksl"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="rBY-mr-O59">
-                                <rect key="frame" x="16" y="261.5" width="343" height="144"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="rBY-mr-O59">
+                                <rect key="frame" x="16" y="235" width="343" height="197"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="graphicCollectionEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="IOx-EA-SOI">
                                         <rect key="frame" x="135.5" y="0.0" width="72" height="73"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's create some GIFs!! Get started by tapping the button below" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gY-ir-reI">
-                                        <rect key="frame" x="20" y="103" width="303" height="41"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's create some GIFs!!  Get started by tapping  the button below" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gY-ir-reI">
+                                        <rect key="frame" x="20" y="82" width="303" height="65"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="41" id="mjf-NH-Skp"/>
+                                            <constraint firstAttribute="height" constant="65" id="mjf-NH-Skp"/>
                                             <constraint firstAttribute="width" constant="303" id="yvT-sb-qvt"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -132,6 +132,28 @@
                                             </mask>
                                         </variation>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longpress to delete a gif" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bs8-FM-hID" userLabel="Longpress to delete a gif">
+                                        <rect key="frame" x="20" y="156" width="303" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="41" id="DtF-GT-be6"/>
+                                            <constraint firstAttribute="width" constant="303" id="sUJ-0T-C0x"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.34509803919999998" green="0.3921568627" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="DtF-GT-be6"/>
+                                                <exclude reference="sUJ-0T-C0x"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="DtF-GT-be6"/>
+                                                <include reference="sUJ-0T-C0x"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="9gY-ir-reI" firstAttribute="centerX" secondItem="rBY-mr-O59" secondAttribute="centerX" id="2dw-0a-Gtl"/>
@@ -147,8 +169,9 @@
                                     </mask>
                                 </variation>
                             </stackView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qS4-zr-SFg">
-                                <rect key="frame" x="178" y="324" width="20" height="20"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qS4-zr-SFg">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" red="1" green="0.25490196079999999" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -172,7 +195,9 @@
                         <outlet property="activityIndicator" destination="qS4-zr-SFg" id="nw2-SK-Bqa"/>
                         <outlet property="collectionView" destination="hbv-Kk-KXX" id="dwL-XO-Uby"/>
                         <outlet property="emptyView" destination="IOx-EA-SOI" id="T0N-gu-AkR"/>
+                        <outlet property="letsCreateLabel" destination="9gY-ir-reI" id="MVn-Je-yom"/>
                         <outlet property="longPressGestureRecognizer" destination="l9e-5F-L9v" id="wG1-BT-Af7"/>
+                        <outlet property="longpressLabel" destination="bs8-FM-hID" id="ySM-MQ-Fpw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1mO-R1-5Re" userLabel="First Responder" sceneMemberID="firstResponder"/>
