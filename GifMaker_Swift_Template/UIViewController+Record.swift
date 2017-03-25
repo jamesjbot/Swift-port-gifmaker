@@ -220,7 +220,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         gifEditiorVC.gif = gif
 
         // Dependency inject the savedGifsViewController into the gifEditor
-        gifEditiorVC.savedGifsViewController = self as! PreviewViewControllerDelegate
+        gifEditiorVC.savedGifsViewController = navigationController?.viewControllers[0] as! PreviewViewControllerDelegate
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(gifEditiorVC, animated: true)
         }
