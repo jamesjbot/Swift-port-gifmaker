@@ -187,7 +187,7 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
         // We want modal style presentation
         detailView.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
 
-        navigationController?.pushViewController(detailView, animated: true)
+        present(detailView, animated: true, completion: nil)
 
         // FIXME: Online Solution says this helps
         // http://stackoverflow.com/questions/32356352/uiimageview-animated-doesnt-work-properly-inside-uicollectionviewcell
