@@ -10,12 +10,22 @@ import Foundation
 import UIKit
 
 class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
+
+    // MARK: - CONSTANTS
+    let Images_Per_Row: CGFloat = 2.0
+    let Margins_Per_Image: CGFloat = 2.0
+
     // MARK: - IBOutlet
+    @IBOutlet weak var longpressLabel: UILabel!
+    @IBOutlet weak var letsCreateLabel: UILabel!
 
     @IBOutlet weak var longPressGestureRecognizer: UILongPressGestureRecognizer!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var emptyView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
+
+
+    // MARK: - IBACTIONS
 
     @IBAction func longpressHandle(_ sender: UILongPressGestureRecognizer) {
         func deleteGif (atItemPosition: IndexPath) {
@@ -28,26 +38,21 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
         case UIGestureRecognizerState.began:
             let point = sender.location(in: collectionView)
             let indexpath = collectionView.indexPathForItem(at: point)
+            // Do not delete if there is no UICollectionViewCell there.
+            guard indexpath != nil else {
+                return
+            }
             let action = UIAlertAction(title: "Delete Gif",
                                        style: .destructive,
                                        handler:  { (alert: UIAlertAction!) in
                                         deleteGif(atItemPosition: indexpath!) })
             displayAlertWindow(title: "Delete Gif?", msg: "Delete this Gif?", actions: [action])
-        case UIGestureRecognizerState.changed: break
-            // Move floating annotation
-//            mapView.removeAnnotation(floatingAnnotation)
-//            let coordinateOnMap = mapView.convert(sender.location(in: mapView), toCoordinateFrom: mapView)
-//            let annotation = MKPointAnnotation()
-//            annotation.coordinate = coordinateOnMap
-//            mapView.addAnnotation(annotation)
-//            floatingAnnotation = annotation
+        case UIGestureRecognizerState.changed:
+            break
 
         case UIGestureRecognizerState.ended:
             print("UIGestureRecognizerEnded")
             break
-//            insertPinIntoCoreData()
-//            // Clear out floating annotation
-//            floatingAnnotation = nil
 
         case UIGestureRecognizerState.cancelled:
             break
@@ -83,7 +88,6 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Functions
 
     func showWelcome() {
-        //if !UserDefaults.standard.bool(forKey: "WelcomeViewSeen") {
         guard UserDefaults.standard.bool(forKey: "WelcomeViewSeen") == false
             else {
                 return
@@ -92,10 +96,14 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationController?.pushViewController(welcomeView!, animated: true)
     }
 
+
     // MARK: - View Life Cycle Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Puts Back label on all subsequent navigation view controllers.
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
 
         longPressGestureRecognizer.minimumPressDuration = 0.25
         collectionView.addGestureRecognizer(longPressGestureRecognizer)
@@ -118,17 +126,34 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        // Hide the Image if there are gifs availabe for display
-
-        emptyView.isHidden = (savedGifs.count != 0)
-
-        collectionView.reloadData()
+        turnOnAndOffUIElements()
 
         // Hide navigation bar when there are no gifs
-
         navigationController?.navigationBar.isHidden = savedGifs.count == 0
-        
+
+        // Stop spinner
+        // shutdownActivityIndicator()
+
+        print("SavedGifs ViewWillAppear Exited")
+
     }
+
+    // Toggles certain UI labels and images when the user gets more used
+    // to the interface
+    func turnOnAndOffUIElements() {
+        longpressLabel.isHidden = false
+        letsCreateLabel.isHidden = false
+
+        // Hide the Image if there are gifs availabe for display
+        emptyView.isHidden = (savedGifs.count != 0)
+        longpressLabel.isHidden = !(savedGifs.count != 0)
+
+        if savedGifs.count > 2 {
+            longpressLabel.isHidden = true
+            letsCreateLabel.isHidden = true
+        }
+    }
+
 }
 
 
@@ -164,13 +189,50 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
 
         navigationController?.pushViewController(detailView, animated: true)
 
+        // FIXME: Online Solution says this helps
+        // http://stackoverflow.com/questions/32356352/uiimageview-animated-doesnt-work-properly-inside-uicollectionviewcell
+        animateCell(inCollection: collectionView, indexPath: indexPath)
     }
 
+
+    func animateCell(inCollection: UICollectionView, indexPath: IndexPath) {
+        // FIXME: Online Solution says this helps
+        if let cell = collectionView.cellForItem(at: indexPath) as? GifCell{
+            cell.gifImageView.startAnimating()
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        animateCell(inCollection: collectionView, indexPath: indexPath)
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        animateCell(inCollection: collectionView, indexPath: indexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        animateCell(inCollection: collectionView, indexPath: indexPath)
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print("+++++++++ Will display called on indexpath \(indexPath)")
+        print("Selected Items:")
+        print(collectionView.indexPathsForSelectedItems)
+        animateCell(inCollection: collectionView, indexPath: indexPath)
+    }
 
     // MARK: - UICollectionViewFlowLayoutDelegate methods
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.frame.width - (cellMargin * 2.0))/2.0
+        let numberOfMargins: CGFloat!
+        if Images_Per_Row > 2 {
+            numberOfMargins = (Margins_Per_Image * Images_Per_Row)
+        } else {
+            numberOfMargins = (Margins_Per_Image)
+        }
+        let width = (collectionView.frame.width - (cellMargin * numberOfMargins))/Images_Per_Row
         return CGSize(width: width, height: width)
     }
 
@@ -191,6 +253,12 @@ extension SavedGifsViewController: PreviewViewControllerDelegate {
         save(theseGifsToDisk: savedGifs)
         activityIndicator.stopAnimating()
     }
+
+
+    func reloadCollection() {
+        collectionView.reloadData()
+    }
+
 
     func save(theseGifsToDisk gifs: [Gif]) {
         NSKeyedArchiver.archiveRootObject(gifs, toFile: saveFileURL)
