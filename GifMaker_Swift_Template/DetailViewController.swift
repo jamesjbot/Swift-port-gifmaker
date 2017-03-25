@@ -22,7 +22,7 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func dismissViewController(_ sender: UIButton) {
-        navigationController?.popToRootViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
 
     // MARK: - IBOutlets
