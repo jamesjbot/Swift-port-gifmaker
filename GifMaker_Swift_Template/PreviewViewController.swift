@@ -46,10 +46,12 @@ class PreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         captionImageView.image = gif?.gifImage
-        
-        shareButton.layer.borderWidth = 1.0
-        shareButton.layer.borderColor = UIColor(colorLiteralRed: 255.0, green: 65.0, blue: 112.0, alpha: 1.0).cgColor
-        //shareButton.layer.borderColor = UIColor.green.cgColor
+        let pink = UIColor(colorLiteralRed: 255.0/255.0,
+                           green: 65.0/255.0,
+                           blue: 112.0/255.0,
+                           alpha: 1.0)
+        shareButton.layer.borderWidth = 2.0
+        shareButton.layer.borderColor = pink.cgColor
     }
 
     override func didReceiveMemoryWarning() {
