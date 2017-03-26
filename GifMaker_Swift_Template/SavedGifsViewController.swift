@@ -52,7 +52,6 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
             break
 
         case UIGestureRecognizerState.ended:
-            print("UIGestureRecognizerEnded")
             break
 
         case UIGestureRecognizerState.cancelled:
@@ -62,7 +61,6 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
             break
 
         case UIGestureRecognizerState.possible:
-            print("UIGestureRecognizer Possible")
             break
 
         default:
@@ -133,9 +131,6 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationController?.navigationBar.isHidden = savedGifs.count == 0
 
         collectionView.reloadData()
-
-        print("SavedGifs ViewWillAppear Exited")
-
     }
 
     // Toggles certain UI labels and images when the user gets more used
@@ -217,9 +212,6 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
 
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        print("+++++++++ Will display called on indexpath \(indexPath)")
-        print("Selected Items:")
-        print(collectionView.indexPathsForSelectedItems)
         animateCell(inCollection: collectionView, indexPath: indexPath)
     }
 

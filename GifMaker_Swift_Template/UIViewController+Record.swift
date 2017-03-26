@@ -101,7 +101,6 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     // MARK: - UIImagePickerControllerDelegate Methods
 
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        print("DidfinishPickingMediaWithInfo called")
         let mediaType = info[UIImagePickerControllerMediaType] as! String
 
         // Note as of Swift 3 trimming on photolibrary movies does not generate start and end information.
@@ -119,9 +118,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
             cropVideoToSquare(rawVideoURL: videoURL, start: start, duration: duration)
             // Dismiss the imagePicker
-            print("exiting DidfinishpickingMediaWithInfo")
             dismiss(animated: true, completion: nil)
-            print("After dismiss in didFinishPickingMdiaWithInfo")
         }
     }
 
@@ -146,7 +143,6 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
         let gifURL = regift.createGif()
         let gif = Gif(url: gifURL!, videoURL: videoURL as URL, caption: nil)
-        print("convert squared video to gif calling displayGIF")
         displayGIF(gif: gif)
     }
 
@@ -159,7 +155,6 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         // Crop to square
         let videoComposition = AVMutableVideoComposition()
         videoComposition.renderSize = CGSize(width: videoTrack.naturalSize.height, height: videoTrack.naturalSize.height)
-        print(videoComposition.renderSize)
         videoComposition.frameDuration = CMTimeMake(1, 30)
 
         let instruction = AVMutableVideoCompositionInstruction()
@@ -178,7 +173,6 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
         //export
         let exporter = AVAssetExportSession(asset: videoAsset, presetName: AVAssetExportPresetHighestQuality)!
-        print(videoComposition.renderSize)
         exporter.videoComposition = videoComposition
         let path = createPath()
         exporter.outputURL = NSURL(fileURLWithPath: path) as URL
