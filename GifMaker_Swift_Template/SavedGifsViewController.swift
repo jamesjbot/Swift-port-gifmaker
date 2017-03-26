@@ -14,6 +14,7 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - CONSTANTS
     let Images_Per_Row: CGFloat = 2.0
     let Margins_Per_Image: CGFloat = 2.0
+    let Inset: CGFloat = 8.0
 
     // MARK: - IBOutlet
     @IBOutlet weak var longpressLabel: UILabel!
@@ -223,19 +224,29 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
         animateCell(inCollection: collectionView, indexPath: indexPath)
     }
 
+
     // MARK: - UICollectionViewFlowLayoutDelegate methods
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfMargins: CGFloat!
-        if Images_Per_Row > 2 {
-            numberOfMargins = (Margins_Per_Image * Images_Per_Row)
-        } else {
-            numberOfMargins = (Margins_Per_Image)
-        }
-        let width = (collectionView.frame.width - (cellMargin * numberOfMargins))/Images_Per_Row
+        let paddingspace = Inset * (Images_Per_Row + 1)
+        let width = (collectionView.frame.width - paddingspace)/Images_Per_Row
         return CGSize(width: width, height: width)
     }
 
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return Inset
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: Inset, left: Inset, bottom: Inset, right: Inset)
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return Inset
+    }
 }
 
 // MARK: -
