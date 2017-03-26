@@ -80,7 +80,15 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
             captionTextField.autocapitalizationType = UITextAutocapitalizationType.allCharacters
             captionTextField.defaultTextAttributes = textAttributes
             captionTextField.textAlignment = .center
-            captionTextField.placeholder = "Add Caption"
+            captionTextField.attributedPlaceholder =
+            NSAttributedString(string: "Add Caption",
+                               attributes: [
+                NSStrokeWidthAttributeName: -4.0,
+                NSForegroundColorAttributeName : UIColor.white,
+                NSStrokeColorAttributeName : UIColor.black,
+                NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!
+                ]
+            )
 
             // Always show the navigation bar on this screen
             navigationController?.navigationBar.isHidden = false
