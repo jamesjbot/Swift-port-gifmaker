@@ -33,8 +33,8 @@ GifMaker should run without any additional setup.
 Changes are not accepted at this time
  
 ## Change log
-
-Initial Commit
+03-24-2017 v2.0
+02-12-2017 Initial Commit v1.0
 
 ## License and author info
 Original: @GabrielleM
