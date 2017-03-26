@@ -41,7 +41,7 @@ GifMaker should run without any additional setup.
 Changes are not accepted at this time
  
 ## Change log
-03-24-2017 v2.0 Implements the basic functionality of the orignal and adds deletion capability and style enhancements.
+03-24-2017 v2.0 Implements the basic functionality of the orignal and adds deletion capability and style enhancements.  
 02-12-2017 v1.0 Initial Commit
 
 ## License and author info
