@@ -132,8 +132,7 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
         // Hide navigation bar when there are no gifs
         navigationController?.navigationBar.isHidden = savedGifs.count == 0
 
-        // Stop spinner
-        // shutdownActivityIndicator()
+        collectionView.reloadData()
 
         print("SavedGifs ViewWillAppear Exited")
 
