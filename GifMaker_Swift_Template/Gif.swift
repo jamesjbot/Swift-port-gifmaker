@@ -26,11 +26,30 @@ class Gif: NSObject, NSCoding {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        url = aDecoder.decodeObject(forKey: "url") as! URL
-        videoURL = aDecoder.decodeObject(forKey: "videoURL") as! URL
-        caption = aDecoder.decodeObject(forKey: "caption") as? String
-        gifImage = aDecoder.decodeObject(forKey: "gifimage") as! UIImage
-        gifData = aDecoder.decodeObject(forKey: "gifdata") as? NSData
+        guard let url = aDecoder.decodeObject(forKey: "url") as? URL else {
+            return nil
+        }
+        self.url = url
+
+        guard let videoURL = aDecoder.decodeObject(forKey: "videoURL") as? URL else {
+            return nil
+        }
+        self.videoURL = videoURL
+
+        guard let caption = aDecoder.decodeObject(forKey: "caption") as? String else {
+            return nil
+        }
+        self.caption = caption
+
+        guard let gifImage = aDecoder.decodeObject(forKey: "gifimage") as? UIImage else {
+            return nil
+        }
+        self.gifImage = gifImage
+
+        guard let gifData = aDecoder.decodeObject(forKey: "gifdata") as? NSData else {
+            return nil
+        }
+        self.gifData = gifData
     }
 
     func encode(with aCoder: NSCoder) {
