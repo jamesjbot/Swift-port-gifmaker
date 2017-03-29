@@ -21,7 +21,7 @@ class Gif: NSObject, NSCoding {
         self.url = url
         self.videoURL = videoURL
         self.caption = caption
-        self.gifImage = UIImage.gif(url: url.absoluteString)!
+        self.gifImage = UIImage.gif(url: url.absoluteString) ?? UIImage()
         self.gifData = nil
     }
 

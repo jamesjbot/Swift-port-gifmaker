@@ -21,21 +21,26 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
     @IBAction func presentPreview(_ sender: Any) {
 
         // Create preview
-        let previewVC = storyboard?.instantiateViewController(withIdentifier: "PreviewViewController") as! PreviewViewController
+        let previewVC = storyboard?.instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController
 
         // Dependency inject the savedGifsViewController into
         // the preview view controller
-        previewVC.delegate = savedGifsViewController
+        previewVC?.delegate = savedGifsViewController
 
         // Prepare gif and dependency inject it into new viewcontroller
+        // Link all the parts that make up gif and then inject it into the view controlelr
+        
         gif?.caption = captionTextField.text
-        let regift = Regift(sourceFileURL: (gif?.videoURL)!, destinationFileURL: nil, frameCount: frameCount, delayTime: delayTime, loopCount: loopCount)
-        let gifURL = regift.createGif(caption: captionTextField.text, font: captionTextField.font)
-        let newGif = Gif(url: gifURL!, videoURL: (gif?.videoURL)!, caption: captionTextField.text)
-        previewVC.gif = newGif
+        if let videoURL = gif?.videoURL,
+            let gifURL = Regift(sourceFileURL: videoURL, destinationFileURL: nil, frameCount: frameCount, delayTime: delayTime, loopCount: loopCount).createGif(caption: captionTextField.text, font: captionTextField.font) {
+            let newGif = Gif(url: gifURL, videoURL: videoURL, caption: captionTextField.text)
+            previewVC?.gif = newGif
+        }
 
         // Push preview view controller
-        navigationController?.pushViewController(previewVC, animated: true)
+        if let previewVC = previewVC {
+            navigationController?.pushViewController(previewVC, animated: true)
+        }
     }
 
 
@@ -43,7 +48,7 @@ class GifEditorViewController: UIViewController, UITextFieldDelegate {
 
     // Dependency Injected Variables
     var gif:Gif?
-    var savedGifsViewController: PreviewViewControllerDelegate!
+    var savedGifsViewController: PreviewViewControllerDelegate?
 
 
     // MARK: FUNCTIONS
@@ -153,8 +158,8 @@ extension GifEditorViewController {
 
     func getKeyboardHeight(notification: NSNotification) -> CGFloat{
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-        return keyboardSize.cgRectValue.height
+        let keyboardSize: NSValue? = userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue
+        return keyboardSize?.cgRectValue.height ?? 0
     }
     
 }

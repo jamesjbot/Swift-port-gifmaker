@@ -101,18 +101,24 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     // MARK: - UIImagePickerControllerDelegate Methods
 
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let mediaType = info[UIImagePickerControllerMediaType] as! String
+        guard let mediaType = info[UIImagePickerControllerMediaType] as? String else {
+            return
+        }
 
         // Note as of Swift 3 trimming on photolibrary movies does not generate start and end information.
 
         if mediaType == kUTTypeMovie as String{
-            let videoURL = info[UIImagePickerControllerMediaURL] as! URL
-            let start: NSNumber? = info["_UIImagePickerControllerVideoEditingStart"]as! NSNumber?
-            let end: NSNumber? = info["_UIImagePickerControllerVideoEditingEnd"] as! NSNumber?
+            guard let videoURL = info[UIImagePickerControllerMediaURL] as? URL else {
+                return
+            }
             var duration: NSNumber?
-            if let start = start {
-                duration = NSNumber(value: (end!.floatValue) - (start.floatValue))
-            } else{
+            var start: NSNumber?
+            if let tempStart: NSNumber = info["_UIImagePickerControllerVideoEditingStart"] as? NSNumber,
+                let end: NSNumber = info["_UIImagePickerControllerVideoEditingEnd"] as? NSNumber {
+                start = tempStart
+                duration = NSNumber(value: (end.floatValue) - (tempStart.floatValue))
+            } else {
+                start = nil
                 duration = nil
             }
 
@@ -133,17 +139,18 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     func convertVideoToGIF(videoURL: URL, start: NSNumber?, duration: NSNumber?){
 
         let regift: Regift
-        if (start == nil){
-            // Untrimmed video
-            regift = Regift(sourceFileURL: videoURL as URL, destinationFileURL: nil, frameCount: frameCount, delayTime: delayTime, loopCount: loopCount)
-        } else{
+        if ( start != nil && duration != nil ){
             // Trimmed video
             regift = Regift(sourceFileURL: videoURL as URL, destinationFileURL: nil, startTime: (start?.floatValue)!, duration: (duration?.floatValue)!, frameRate: frameCount, loopCount: loopCount)
+        } else {
+            // Untrimmed video
+            regift = Regift(sourceFileURL: videoURL as URL, destinationFileURL: nil, frameCount: frameCount, delayTime: delayTime, loopCount: loopCount)
         }
 
-        let gifURL = regift.createGif()
-        let gif = Gif(url: gifURL!, videoURL: videoURL as URL, caption: nil)
-        displayGIF(gif: gif)
+        if let gifURL = regift.createGif() {
+            let gif = Gif(url: gifURL, videoURL: videoURL as URL, caption: nil)
+            displayGIF(gif: gif)
+        }
     }
 
     func cropVideoToSquare(rawVideoURL: URL, start: NSNumber?, duration: NSNumber?) {
@@ -172,7 +179,9 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         videoComposition.instructions = [instruction]
 
         //export
-        let exporter = AVAssetExportSession(asset: videoAsset, presetName: AVAssetExportPresetHighestQuality)!
+        guard let exporter = AVAssetExportSession(asset: videoAsset, presetName: AVAssetExportPresetHighestQuality) else {
+            return
+        }
         exporter.videoComposition = videoComposition
         let path = createPath()
         exporter.outputURL = NSURL(fileURLWithPath: path) as URL
@@ -184,7 +193,9 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         }
 
         exporter.exportAsynchronously(completionHandler: {
-            let squareURL = exporter.outputURL!
+            guard let squareURL = exporter.outputURL else {
+                return
+            }
             self.convertVideoToGIF(videoURL: squareURL, start: start, duration: duration)
         })
     }
@@ -210,11 +221,16 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
     // Dependency inject gif into the GifEditorViewController
     func displayGIF(gif: Gif){
-        let gifEditiorVC = storyboard?.instantiateViewController(withIdentifier: "GifEditorViewController") as! GifEditorViewController
+        guard let gifEditiorVC = storyboard?.instantiateViewController(withIdentifier: "GifEditorViewController") as? GifEditorViewController else {
+            return
+        }
         gifEditiorVC.gif = gif
 
         // Dependency inject the savedGifsViewController into the gifEditor
-        gifEditiorVC.savedGifsViewController = navigationController?.viewControllers[0] as! PreviewViewControllerDelegate
+        guard let viewController = navigationController?.viewControllers[0] as? PreviewViewControllerDelegate else {
+            return
+        }
+        gifEditiorVC.savedGifsViewController = viewController
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(gifEditiorVC, animated: true)
         }
@@ -239,8 +255,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
                 self.navigationController?.popToRootViewController(animated: true)
             }
         }
-
-        navigationController?.present(shareController, animated: true, completion: nil)
+        present(shareController, animated: true, completion: nil)
     }
 
 

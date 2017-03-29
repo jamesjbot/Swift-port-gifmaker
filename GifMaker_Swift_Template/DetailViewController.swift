@@ -18,7 +18,9 @@ class DetailViewController: UIViewController {
     // MARK: - IBActions
 
     @IBAction func shareGif(_ sender: UIButton) {
-        share(thisGif: localGif!)
+        if let localGif = localGif {
+            share(thisGif: localGif)
+        }
     }
 
     @IBAction func dismissViewController(_ sender: UIButton) {
