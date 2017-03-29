@@ -33,6 +33,13 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
             savedGifs.remove(at: atItemPosition.item)
             collectionView.deleteItems(at: [atItemPosition])
             save(theseGifsToDisk: savedGifs)
+            if savedGifs.count <= 2 {
+                letsCreateLabel.isHidden = false
+                longpressLabel.isHidden = false
+                if savedGifs.count == 0 {
+                    emptyView.isHidden = false
+                }
+            }
         }
 
         switch sender.state {
