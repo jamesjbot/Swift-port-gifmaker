@@ -31,22 +31,29 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func longpressHandle(_ sender: UILongPressGestureRecognizer) {
         func deleteGif (atItemPosition: IndexPath) {
             savedGifs.remove(at: atItemPosition.item)
-            collectionView.reloadData()
+            collectionView.deleteItems(at: [atItemPosition])
             save(theseGifsToDisk: savedGifs)
+            if savedGifs.count <= 2 {
+                letsCreateLabel.isHidden = false
+                longpressLabel.isHidden = false
+                if savedGifs.count == 0 {
+                    emptyView.isHidden = false
+                }
+            }
         }
 
         switch sender.state {
         case UIGestureRecognizerState.began:
             let point = sender.location(in: collectionView)
-            let indexpath = collectionView.indexPathForItem(at: point)
+
             // Do not delete if there is no UICollectionViewCell there.
-            guard indexpath != nil else {
+            guard let indexpath = collectionView.indexPathForItem(at: point) else {
                 return
             }
             let action = UIAlertAction(title: "Delete Gif",
                                        style: .destructive,
-                                       handler:  { (alert: UIAlertAction!) in
-                                        deleteGif(atItemPosition: indexpath!) })
+                                       handler:  { (alert: UIAlertAction?) in
+                                        deleteGif(atItemPosition: indexpath) })
             displayAlertWindow(title: "Delete Gif?", msg: "Delete this Gif?", actions: [action])
         case UIGestureRecognizerState.changed:
             break
@@ -61,9 +68,6 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
             break
 
         case UIGestureRecognizerState.possible:
-            break
-
-        default:
             break
         }
     }
@@ -91,8 +95,9 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
             else {
                 return
             }
-        let welcomeView = storyboard?.instantiateViewController(withIdentifier: "WelcomeViewController")
-        navigationController?.pushViewController(welcomeView!, animated: true)
+        if let welcomeView = storyboard?.instantiateViewController(withIdentifier: "WelcomeViewController") {
+            navigationController?.pushViewController(welcomeView, animated: true)
+        }
     }
 
 
@@ -117,8 +122,8 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
         view.layer.insertSublayer(bottomBlur, above: collectionView.layer)
 
         // Retrieve gifs saved from last run
-        if let gifs = NSKeyedUnarchiver.unarchiveObject(withFile: saveFileURL) {
-            savedGifs = gifs as! [Gif]
+        if let gifsFromLastRun = NSKeyedUnarchiver.unarchiveObject(withFile: saveFileURL) as? [Gif] {
+            savedGifs = gifsFromLastRun
         }
     }
 
@@ -129,8 +134,6 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
 
         // Hide navigation bar when there are no gifs
         navigationController?.navigationBar.isHidden = savedGifs.count == 0
-
-        collectionView.reloadData()
     }
 
     // Toggles certain UI labels and images when the user gets more used
@@ -164,10 +167,10 @@ extension SavedGifsViewController: UICollectionViewDelegate, UICollectionViewDat
 
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GifCell", for: indexPath) as! GifCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GifCell", for: indexPath) as? GifCell
         let gif = savedGifs[indexPath.item]
-        cell.configureForGif(gif: gif)
-        return cell
+        cell?.configureForGif(gif: gif)
+        return cell ?? UICollectionViewCell()
     }
 
 
@@ -247,20 +250,18 @@ extension SavedGifsViewController: PreviewViewControllerDelegate {
     // MARK: - PreviewViewControllerDelegate
 
     func previewVC(preview: UIImage, didSaveGif gif: Gif) {
-        var newGif = Gif(url: gif.url, videoURL: gif.videoURL, caption: gif.caption)
+        let newGif = Gif(url: gif.url, videoURL: gif.videoURL, caption: gif.caption)
         newGif.gifData = NSData(contentsOf: newGif.url)
         savedGifs.append(newGif)
+
+        let path = IndexPath(item: savedGifs.endIndex-1, section: 0)
+        collectionView.insertItems(at: [path])
 
         // Save every new gif to document directory
         save(theseGifsToDisk: savedGifs)
         activityIndicator.stopAnimating()
     }
-
-
-    func reloadCollection() {
-        collectionView.reloadData()
-    }
-
+    
 
     func save(theseGifsToDisk gifs: [Gif]) {
         NSKeyedArchiver.archiveRootObject(gifs, toFile: saveFileURL)

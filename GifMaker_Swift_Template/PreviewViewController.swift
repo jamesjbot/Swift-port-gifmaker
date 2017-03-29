@@ -8,15 +8,14 @@
 
 import UIKit
 
-protocol PreviewViewControllerDelegate {
+internal protocol PreviewViewControllerDelegate {
     func previewVC(preview: UIImage, didSaveGif gif: Gif)
-    func reloadCollection()
 }
 
 class PreviewViewController: UIViewController {
 
     // MARK: - Variables
-    var delegate: PreviewViewControllerDelegate!
+    var delegate: PreviewViewControllerDelegate?
     var gif: Gif?
 
     // MARK: - IBOutlets
@@ -33,12 +32,13 @@ class PreviewViewController: UIViewController {
                 delegate?.previewVC(preview: gifImage, didSaveGif: gif)
             }
         }
-        delegate.reloadCollection()
-        navigationController?.popToRootViewController(animated: true)
+        let _ = navigationController?.popToRootViewController(animated: true)
     }
 
     @IBAction func shareGif(_ sender: Any) {
-        share(thisGif: gif!)
+        if let gif = self.gif {
+            share(thisGif: gif)
+        }
     }
 
     // MARK: - Functions
