@@ -31,10 +31,7 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func longpressHandle(_ sender: UILongPressGestureRecognizer) {
         func deleteGif (atItemPosition: IndexPath) {
             savedGifs.remove(at: atItemPosition.item)
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-                self.collectionView.setNeedsDisplay()
-            }
+            collectionView.deleteItems(at: [atItemPosition])
             save(theseGifsToDisk: savedGifs)
         }
 
