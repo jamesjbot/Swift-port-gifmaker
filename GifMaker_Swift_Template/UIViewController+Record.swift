@@ -252,7 +252,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         let shareController = UIActivityViewController(activityItems: itemToShare, applicationActivities: nil)
         shareController.completionWithItemsHandler = {(activity, completed, items, error) in
             if (completed){
-                self.navigationController?.popToRootViewController(animated: true)
+                let _ = self.navigationController?.popToRootViewController(animated: true)
             }
         }
         present(shareController, animated: true, completion: nil)

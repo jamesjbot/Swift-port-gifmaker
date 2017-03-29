@@ -34,7 +34,7 @@ class PreviewViewController: UIViewController {
             }
         }
         delegate?.reloadCollection()
-        navigationController?.popToRootViewController(animated: true)
+        let _ = navigationController?.popToRootViewController(animated: true)
     }
 
     @IBAction func shareGif(_ sender: Any) {

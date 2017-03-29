@@ -65,9 +65,6 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
 
         case UIGestureRecognizerState.possible:
             break
-
-        default:
-            break
         }
     }
 
@@ -251,7 +248,7 @@ extension SavedGifsViewController: PreviewViewControllerDelegate {
     // MARK: - PreviewViewControllerDelegate
 
     func previewVC(preview: UIImage, didSaveGif gif: Gif) {
-        var newGif = Gif(url: gif.url, videoURL: gif.videoURL, caption: gif.caption)
+        let newGif = Gif(url: gif.url, videoURL: gif.videoURL, caption: gif.caption)
         newGif.gifData = NSData(contentsOf: newGif.url)
         savedGifs.append(newGif)
 
