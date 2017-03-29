@@ -10,7 +10,6 @@ import UIKit
 
 internal protocol PreviewViewControllerDelegate {
     func previewVC(preview: UIImage, didSaveGif gif: Gif)
-    func reloadCollection()
 }
 
 class PreviewViewController: UIViewController {
@@ -33,7 +32,6 @@ class PreviewViewController: UIViewController {
                 delegate?.previewVC(preview: gifImage, didSaveGif: gif)
             }
         }
-        delegate?.reloadCollection()
         let _ = navigationController?.popToRootViewController(animated: true)
     }
 

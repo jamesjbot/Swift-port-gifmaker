@@ -127,8 +127,6 @@ class SavedGifsViewController: UIViewController, UIGestureRecognizerDelegate {
 
         // Hide navigation bar when there are no gifs
         navigationController?.navigationBar.isHidden = savedGifs.count == 0
-
-        collectionView.reloadData()
     }
 
     // Toggles certain UI labels and images when the user gets more used
@@ -249,16 +247,14 @@ extension SavedGifsViewController: PreviewViewControllerDelegate {
         newGif.gifData = NSData(contentsOf: newGif.url)
         savedGifs.append(newGif)
 
+        let path = IndexPath(item: savedGifs.endIndex-1, section: 0)
+        collectionView.insertItems(at: [path])
+
         // Save every new gif to document directory
         save(theseGifsToDisk: savedGifs)
         activityIndicator.stopAnimating()
     }
-
-
-    func reloadCollection() {
-        collectionView.reloadData()
-    }
-
+    
 
     func save(theseGifsToDisk gifs: [Gif]) {
         NSKeyedArchiver.archiveRootObject(gifs, toFile: saveFileURL)
